@@ -18,7 +18,26 @@ public interface ProductService {
             String policy, String numberOfDays, Integer productPrice,
              MultipartFile image1, MultipartFile image2, MultipartFile image3, MultipartFile image4, MultipartFile image5, MultipartFile image6)throws  UserException;  
 
+
+	public List<Product> getProductsByCategoryId(Long categoryId);
 	
+	public List<Product> getProductsByCategoryIdSortedByPriceDesc(Long categoryId);
+	
+ 	public List<Product> getProductsByCategoryIdSortedByPriceASC(Long categoryId);
+	
+ 	public List<Product> getNewestProductsByCategory(long categoryId, int days);
+	
+	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
 	public String deleteProduct(Long productId) throws ProductException;
 	
 	public Product updateProduct(Long productId,Product req) throws ProductException;
@@ -26,6 +45,7 @@ public interface ProductService {
 	public Product findProductById(Long id) throws ProductException;
 	
 	public List<Product> findProductByCategory(String category);
+	
 	
 	public Page<Product> getAllProduct(String category,List<String>sizes,Integer minPrice,Integer maxPrice,
 			Integer minDiscount,String sort,String stock,Integer pageNumber,Integer pageSize);

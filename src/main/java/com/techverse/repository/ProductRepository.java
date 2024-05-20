@@ -1,5 +1,7 @@
 package com.techverse.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -44,5 +46,18 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	
 	//01:15  2nd video
+	
+	
+	
+	 List<Product> findByCategoryId(Long categoryId);  
+
+	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.product_price DESC")
+	    List<Product> findByCategoryIdOrderByProductPriceDesc(Long categoryId);
+	 
+	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.product_price ASC")
+	    List<Product> findByCategoryIdOrderByProductPriceASC(Long categoryId);
+	 
+	 
+	  List<Product> findByCategoryIdAndCreatedAtBetween(long categoryId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 
 }

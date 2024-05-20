@@ -1,6 +1,8 @@
 package com.techverse.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +28,7 @@ public class ProductServiceImplementation implements ProductService{
 
 	@Autowired
 	private ProductRepository productRepository;
+	 
 	@Autowired
 	private  UserService userService;
 	
@@ -58,6 +61,7 @@ public class ProductServiceImplementation implements ProductService{
 	        System.out.println(sellerPrice);
 	        product.setService_charges(serviceCharges);
 	        product.setSeller_price(sellerPrice);
+	        product.setCreatedAt(LocalDateTime.now());
 
 	        // Save product and handle images
 	        Product savedProduct = productRepository.save(product);
@@ -101,7 +105,47 @@ public class ProductServiceImplementation implements ProductService{
 	        return savedProduct;
 	    }
 
+	 @Override
+		public List<Product> getProductsByCategoryId(Long categoryId) {
+	        return productRepository.findByCategoryId(categoryId);
+	    }
 
+	 @Override
+	 public List<Product> getProductsByCategoryIdSortedByPriceDesc(Long categoryId) {
+	        return productRepository.findByCategoryIdOrderByProductPriceDesc(categoryId);
+	    }
+	 
+	 @Override
+	 public List<Product> getProductsByCategoryIdSortedByPriceASC(Long categoryId) {
+	        return productRepository.findByCategoryIdOrderByProductPriceASC(categoryId);
+	    }
+	 
+	 @Override
+	 public List<Product> getNewestProductsByCategory(long categoryId, int days) {
+	        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(days), LocalTime.MIN);
+	        LocalDateTime endDateTime = LocalDateTime.now();
+	        return productRepository.findByCategoryIdAndCreatedAtBetween(categoryId, startDateTime, endDateTime);
+	    }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	@Override
 	public String deleteProduct(Long productId) throws ProductException {
 		 Product product=findProductById(productId);
@@ -135,9 +179,12 @@ public class ProductServiceImplementation implements ProductService{
 	@Override
 	public List<Product> findProductByCategory(String category) {
 		// TODO Auto-generated method stub
+		
+		 
 		return null;
 	}
-
+	
+	
 	@Override
 	public Page<Product> getAllProduct(String category , List<String> sizes, Integer minPrice,
 			Integer maxPrice, Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {

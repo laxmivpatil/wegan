@@ -28,7 +28,7 @@ import com.techverse.service.ProductService;
 import com.techverse.service.UserService;
 
 @RestController
-@RequestMapping("/api/admin/products")
+@RequestMapping("/admin/products")
 public class AdminProductController {
 	
 	@Autowired
@@ -39,7 +39,7 @@ public class AdminProductController {
 	
 	 @PostMapping("/create")
 	    public ResponseEntity<?> createProduct(
-	    		@RequestHeader("Authorization") String jwt,
+	    		//@RequestHeader("Authorization") String jwt,
 	            @RequestPart("categoryId") String categoryId,
 	            @RequestPart("email") String email,
 	            @RequestPart("title") String title,
@@ -58,7 +58,7 @@ public class AdminProductController {
 	            @RequestPart(value="image6",required=false) MultipartFile image6)throws UserException {
 
 		
-		 User user =userService.findUserProfileByJwt(jwt);
+		 //User user =userService.findUserProfileByJwt(jwt);
 	        Product createdProduct = productService.createProduct(
 	        		 Long.parseLong(categoryId), email, title, site, Integer.parseInt( quantity), description,
 	                productTags, policy, numberOfDays,Integer.parseInt(productPrice) , image1,image2,image3,image4,image5,image6);
