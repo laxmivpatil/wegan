@@ -34,19 +34,49 @@ public class ProductController {
     }
 	
 	 @GetMapping("/category/price-high-low")
-	    public List<Product> getProductsByCategoryIdSortedByPriceDesc(@RequestParam Long categoryId) {
-	        return productService.getProductsByCategoryIdSortedByPriceDesc(categoryId);
+	    public Map<String,Object> getProductsByCategoryIdSortedByPriceDesc(@RequestParam Long categoryId) {
+		 
+		 
+		 Map<String,Object> response = new HashMap<>();
+	    	List<Product> product=productService.getProductsByCategoryIdSortedByPriceDesc(categoryId);
+	    	response.put("product", product);
+			response.put("status", true);
+	        response.put("message", "product retrived Successfully");
+	        
+	        return response;
+	         
 	    }
 
 	 @GetMapping("/category/price-low-high")
-	    public List<Product> getProductsByCategoryIdSortedByPriceASC(@RequestParam Long categoryId) {
-	        return productService.getProductsByCategoryIdSortedByPriceASC(categoryId);
+	    public  Map<String,Object> getProductsByCategoryIdSortedByPriceASC(@RequestParam Long categoryId) {
+		 Map<String,Object> response = new HashMap<>();
+		   
+		 List<Product> product=productService.getProductsByCategoryIdSortedByPriceASC(categoryId);
+			    	response.put("product", product);
+					response.put("status", true);
+			        response.put("message", "product retrived Successfully");
+			        
+			        return response;
+		 
+		 
+	         
 	    }
 	 
 	 @GetMapping("/category/newest")
-	    public List<Product> getNewestProductsByCategory(@RequestParam Long categoryId) {
+	    public Map<String,Object> getNewestProductsByCategory(@RequestParam Long categoryId) {
 	        int days = 4; // You can change this to any number of days you want to consider
-	        return productService.getNewestProductsByCategory(categoryId, days);
+	    
+	        
+	        
+	        
+	        Map<String,Object> response = new HashMap<>();
+			   
+			 List<Product> product= productService.getNewestProductsByCategory(categoryId, days);
+				    	response.put("product", product);
+						response.put("status", true);
+				        response.put("message", "product retrived Successfully");
+				        
+				        return response;
 	    }
 }
 
