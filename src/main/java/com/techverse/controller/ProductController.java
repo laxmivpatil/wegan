@@ -84,7 +84,16 @@ public class ProductController {
 	    }
 	 
 	 
-	 
+	 @GetMapping("/allproducts")
+	    public Map<String, Object>  getAllProducts() {
+			Map<String,Object> response = new HashMap<>();
+	    	List<Product> product=productService.findAllProduct();
+	    	response.put("product", product);
+			response.put("status", true);
+	        response.put("message", "product retrived Successfully");
+	        
+	        return response;
+	    }
 	 @GetMapping("/")
 	    public ResponseEntity<Map<String,Object>> getProductById(@RequestParam Long id) throws ProductException {
 		 Map<String,Object> response = new HashMap<>();

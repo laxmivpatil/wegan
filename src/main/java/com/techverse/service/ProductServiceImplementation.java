@@ -144,7 +144,13 @@ public class ProductServiceImplementation implements ProductService{
 			throw new ProductException("Product Not Found with id "+id);
 		}
 	 
-	 
+		@Override
+		public List<Product> findAllProduct()  {
+
+	//by me
+			return productRepository.findAll();
+		}
+
 	 
 	 
 	 
@@ -232,11 +238,5 @@ public class ProductServiceImplementation implements ProductService{
 		return null;
 	}
 
-	@Override
-	public List<Product> findAllProduct()  {
-
-//by me
-		return productRepository.findAll();
-	}
 
 }
