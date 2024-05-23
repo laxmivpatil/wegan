@@ -128,7 +128,16 @@ public class ProductServiceImplementation implements ProductService{
 	    }
 	 
 	 
-	 
+	 @Override
+		public Product findProductById(Long id) throws ProductException {
+			// TODO Auto-generated method stub
+			Optional<Product> product=productRepository.findById(id);
+			if(product.isPresent())
+			{
+				return product.get();
+			}
+			throw new ProductException("Product Not Found with id "+id);
+		}
 	 
 	 
 	 
@@ -165,16 +174,7 @@ public class ProductServiceImplementation implements ProductService{
 		return productRepository.save(product);
 	}
 
-	@Override
-	public Product findProductById(Long id) throws ProductException {
-		// TODO Auto-generated method stub
-		Optional<Product> product=productRepository.findById(id);
-		if(product.isPresent())
-		{
-			return product.get();
-		}
-		throw new ProductException("Product Not Found with id "+id);
-	}
+	
 
 	@Override
 	public List<Product> findProductByCategory(String category) {

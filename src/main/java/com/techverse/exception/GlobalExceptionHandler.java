@@ -25,6 +25,15 @@ public class GlobalExceptionHandler {
          return new ResponseEntity<>(errorResponse, HttpStatus.OK);
      }
 	 
+
+	 @ExceptionHandler(ProductException.class)
+     public ResponseEntity<Object> handleProductException(ProductException ex) {
+         // Create a custom error response
+    	 System.out.println("bghghjgjhgjhgjhghjg"+ex);
+         ErrorResponse errorResponse = new ErrorResponse(false, ex.getMessage());
+         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+     }
+	 
 	 
 	   @ExceptionHandler(OrderException.class)
 	    public ResponseEntity<Object> handleOrderException(OrderException ex) {

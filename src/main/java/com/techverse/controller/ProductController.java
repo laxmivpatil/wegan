@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techverse.exception.ProductException;
 import com.techverse.model.Product;
 import com.techverse.service.ProductService;
 
@@ -77,6 +81,23 @@ public class ProductController {
 				        response.put("message", "product retrived Successfully");
 				        
 				        return response;
+	    }
+	 
+	 
+	 
+	 @GetMapping("/")
+	    public ResponseEntity<Map<String,Object>> getProductById(@RequestParam Long id) throws ProductException {
+		 Map<String,Object> response = new HashMap<>();
+	        Product product = productService.findProductById(id);
+	        if (product != null) {
+	        	response.put("product", product);
+				response.put("status", true);
+		        response.put("message", "product retrived Successfully");
+	            return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+	        } else {
+	        	
+	            return new ResponseEntity<>(HttpStatus.OK);
+	        }
 	    }
 }
 
