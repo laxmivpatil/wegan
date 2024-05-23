@@ -99,5 +99,22 @@ public class ProductController {
 	            return new ResponseEntity<>(HttpStatus.OK);
 	        }
 	    }
+	 
+	 @GetMapping("/newest")
+	    public Map<String,Object> getNewestProducts() {
+	        int days = 4; // You can change this to any number of days you want to consider
+	    
+	        
+	        
+	        
+	        Map<String,Object> response = new HashMap<>();
+			   
+			 List<Product> product= productService.getNewestProducts(days);
+				    	response.put("product", product);
+						response.put("status", true);
+				        response.put("message", "product retrived Successfully");
+				        
+				        return response;
+	    }
 }
 

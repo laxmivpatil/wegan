@@ -126,7 +126,12 @@ public class ProductServiceImplementation implements ProductService{
 	        LocalDateTime endDateTime = LocalDateTime.now();
 	        return productRepository.findByCategoryIdAndCreatedAtBetween(categoryId, startDateTime, endDateTime);
 	    }
-	 
+	 @Override
+	 public List<Product> getNewestProducts( int days) {
+	        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(days), LocalTime.MIN);
+	        LocalDateTime endDateTime = LocalDateTime.now();
+	        return productRepository.findByCreatedAtBetween( startDateTime, endDateTime);
+	    }
 	 
 	 @Override
 		public Product findProductById(Long id) throws ProductException {

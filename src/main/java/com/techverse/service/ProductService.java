@@ -27,7 +27,7 @@ public interface ProductService {
 	
  	public List<Product> getNewestProductsByCategory(long categoryId, int days);
 	
-	
+ 	public List<Product> getNewestProducts(int days);
  	
  	
  	
