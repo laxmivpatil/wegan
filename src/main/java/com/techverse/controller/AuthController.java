@@ -103,7 +103,7 @@ public class AuthController {
 		
 		AuthResponse authResponse=new AuthResponse(token, "login Success");
 		
-		return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.CREATED);
+		return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.OK);
 		
 		
 		
