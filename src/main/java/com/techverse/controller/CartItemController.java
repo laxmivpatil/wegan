@@ -23,8 +23,7 @@ import com.techverse.service.UserService;
 @RestController
 @RequestMapping("api/cart_items")
 public class CartItemController {
-	
-	/*
+	 
 	@Autowired
 	private CartItemService cartItemService;
 	
@@ -59,5 +58,5 @@ public class CartItemController {
 			}
 	
 	
-*/
+  
 }

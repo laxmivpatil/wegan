@@ -8,7 +8,7 @@ import com.techverse.repository.OrderItemRepository;
 
 @Service
 public class OrderItemServiceImplementation implements OrderItemService {
-	/*
+	 
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 
@@ -18,7 +18,7 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		return orderItemRepository.save(orderItem);
 		 
 	}
-	*/
+	 
 	
 
 }

@@ -6,13 +6,18 @@ import com.techverse.model.User;
 import com.techverse.request.AddItemRequest;
 
 public interface CartService {
-	/*
+	 
 	
 	public Cart createCart(User user);
 	
 	public String addCartItem(Long userId,AddItemRequest req) throws ProductException;
 	
+	public String addGuestCartItem(AddItemRequest req) throws ProductException; 
+	
 	public Cart findUserCart(Long userId);
-	*/
+	
+	public Cart findGuestCart(Long cartId);
+	 
+	public Cart createTempCart();
 
 }

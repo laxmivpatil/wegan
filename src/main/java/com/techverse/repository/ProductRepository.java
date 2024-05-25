@@ -61,5 +61,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	  List<Product> findByCategoryIdAndCreatedAtBetween(long categoryId, LocalDateTime startDateTime, LocalDateTime endDateTime);
 	  
 	  List<Product> findByCreatedAtBetween( LocalDateTime startDateTime, LocalDateTime endDateTime);
+	  
+	  
+	  List<Product> findByTitleContainingIgnoreCase(String search);
 
 }

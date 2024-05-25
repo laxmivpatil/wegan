@@ -70,7 +70,7 @@ public class AuthController {
 		createdUser.setPassword(passwordEncoder.encode(password));
 		createdUser.setName(name);
 		User savedUser=userRepository.save(createdUser);
-		//Cart cart= cartService.createCart(savedUser);
+		 Cart cart= cartService.createCart(savedUser);
 		
 		Authentication authentication=new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword());
 		

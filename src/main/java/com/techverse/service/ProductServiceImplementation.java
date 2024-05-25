@@ -68,41 +68,42 @@ public class ProductServiceImplementation implements ProductService{
 	        String path="";
 	       if(image1!=null)
 	       {
-	    	   path=storageService.uploadFileOnAzure1(image1);
+	    	   path=storageService.uploadFileOnAzure(image1);
 	       }
 	       
 	       savedProduct.setImageUrl1(path);
 	       path="";
 	       if(image2!=null)
 	       {
-	    	   path=storageService.uploadFileOnAzure1(image2);
+	    	   path=storageService.uploadFileOnAzure(image2);
 	       }
-	       savedProduct.setImageUrl1(path);
+	       savedProduct.setImageUrl2(path);
 	       path="";
 	       if(image3!=null)
 	       {
-	    	   path=storageService.uploadFileOnAzure1(image3);
+	    	   path=storageService.uploadFileOnAzure(image3);
 	       }
-	       savedProduct.setImageUrl1(path);
+	       savedProduct.setImageUrl3(path);
 	       path="";
 	       if(image4!=null)
 	       {
-	    	   path=storageService.uploadFileOnAzure1(image4);
+	    	   path=storageService.uploadFileOnAzure(image4);
 	       }
-	       savedProduct.setImageUrl1(path);
+	       savedProduct.setImageUrl4(path);
 	       path="";
 	       if(image5!=null)
 	       {
-	    	   path=storageService.uploadFileOnAzure1(image5);
+	    	   path=storageService.uploadFileOnAzure(image5);
 	       }
-	       savedProduct.setImageUrl1(path);
+	       savedProduct.setImageUrl5(path);
 	       path="";
 	       if(image6!=null)
 	       {
-	    	   path=storageService.uploadFileOnAzure1(image6);
+	    	   path=storageService.uploadFileOnAzure(image6);
 	       }
-	       savedProduct.setImageUrl1(path);
-	        return savedProduct;
+	       savedProduct.setImageUrl6(path);
+	       return productRepository.save(savedProduct);
+	         
 	    }
 
 	 @Override
@@ -152,7 +153,10 @@ public class ProductServiceImplementation implements ProductService{
 		}
 
 	 
-	 
+		@Override
+	    public List<Product> searchProductByTitle(String search) {
+	        return productRepository.findByTitleContainingIgnoreCase(search);
+	    }
 	 
 	 
 	 
@@ -229,14 +233,7 @@ public class ProductServiceImplementation implements ProductService{
 		return null;
 	}
 
-	@Override
-	public List<Product> searchProduct(String searchparameter) throws ProductException {
-		// TODO Auto-generated method stub
-		
-		
-		
-		return null;
-	}
+	 
 
 
 }

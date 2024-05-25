@@ -4,6 +4,8 @@ public class AddItemRequest {
 	
 	private Long productId;
 	
+	private Long cartId;
+	
 	private String size;
 	
 	private int quantity;
@@ -22,6 +24,16 @@ public class AddItemRequest {
 		this.size = size;
 		this.quantity = quantity;
 		this.price = price;
+	}
+
+
+	public Long getCartId() {
+		return cartId;
+	}
+
+
+	public void setCartId(Long cartId) {
+		this.cartId = cartId;
 	}
 
 

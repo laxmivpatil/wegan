@@ -13,7 +13,7 @@ import com.techverse.request.AddItemRequest;
 
 @Service
 public class CartServiceImplementation implements CartService {
-/*
+ 
 	@Autowired
 	private CartRepository cartRepository;
 	
@@ -35,12 +35,17 @@ public class CartServiceImplementation implements CartService {
 	}
 
 	@Override
+	public Cart createTempCart() {   
+	  Cart cart=new Cart();
+		return cartRepository.save(cart);
+	}
+	@Override
 	public String addCartItem(Long userId, AddItemRequest req) throws ProductException {
 		Cart cart=cartRepository.findByUserId(userId);
 		
 		Product product=productService.findProductById(req.getProductId());
 		
-		CartItem isPresent=cartItemService.isCartItemExist(cart, product, req.getSize(), userId);
+		CartItem isPresent=cartItemService.isCartItemExist(cart, product, userId);
 		
 		if(isPresent==null) {
 			CartItem cartItem=new CartItem();
@@ -49,7 +54,8 @@ public class CartServiceImplementation implements CartService {
 			cartItem.setQuantity(req.getQuantity());
 			cartItem.setUserId(userId);
 			
-			int price=req.getQuantity()*product.getDiscountedPrice();
+			//int price=req.getQuantity()*product.getDiscountedPrice();
+			int price=req.getQuantity()*product.getProduct_price();
 			cartItem.setPrice(price);
 			cartItem.setSize(req.getSize());
 			
@@ -61,6 +67,47 @@ public class CartServiceImplementation implements CartService {
 		
 		return "Item Add To Cart";
 	}
+	
+	@Override
+	public String addGuestCartItem(AddItemRequest req) throws ProductException {
+		Cart cart=cartRepository.findById(req.getCartId()).get();
+		
+		Product product=productService.findProductById(req.getProductId());
+		
+		CartItem isPresent=cartItemService.isGuestCartItemExist(cart, product);
+		
+		if(isPresent==null) {
+			CartItem cartItem=new CartItem();
+			cartItem.setProduct(product);
+			cartItem.setCart(cart);
+			cartItem.setQuantity(req.getQuantity());
+			//cartItem.setUserId(userId);
+			
+			//int price=req.getQuantity()*product.getDiscountedPrice();
+			int price=req.getQuantity()*product.getProduct_price();
+			cartItem.setPrice(price);
+			cartItem.setSize(req.getSize());
+			
+			CartItem createdCartItem=cartItemService.createCartitem(cartItem);
+			cart.getCartItems().add(createdCartItem);
+			
+		}
+		
+		
+		return "Item Add To Cart";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public Cart findUserCart(Long userId) { 
@@ -86,5 +133,31 @@ public class CartServiceImplementation implements CartService {
 		
 		return cartRepository.save(cart);
 	}
-*/
+	
+	
+	@Override
+	public Cart findGuestCart(Long cartId) { 
+		
+		Cart cart=cartRepository.findById(cartId).get();
+		
+		int totalPrice=0;
+		int totalDiscountedPrice=0;
+		int totalItem=0;
+		
+		for(CartItem cartItem:cart.getCartItems()) {
+			totalPrice =totalPrice+cartItem.getPrice();
+			totalDiscountedPrice =totalDiscountedPrice+cartItem.getDiscountedPrice();
+			totalItem =totalItem+cartItem.getQuantity();
+		}
+		
+		
+		cart.setTotalDicountedPrice(totalDiscountedPrice);
+		cart.setTotalItem(totalItem);
+		cart.setTotalPrice(totalPrice);
+		cart.setDiscounte(totalPrice-totalDiscountedPrice);
+		
+		
+		return cartRepository.save(cart);
+	}
+ 
 }

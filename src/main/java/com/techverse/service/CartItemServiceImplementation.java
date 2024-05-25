@@ -17,7 +17,7 @@ import com.techverse.repository.CartRepository;
 
 @Service
 public class CartItemServiceImplementation implements CartItemService{
-	/*
+	 
 	@Autowired
 	private CartItemRepository cartItemRepository;
 	
@@ -31,11 +31,11 @@ public class CartItemServiceImplementation implements CartItemService{
 	@Override
 	public CartItem createCartitem(CartItem cartItem) {
 		 
-		cartItem.setQuantity(1);
-		cartItem.setPrice(cartItem.getProduct().getPrice()*cartItem.getQuantity());
-		cartItem.setDiscountedPrice(cartItem.getProduct().getDiscountedPrice()*cartItem.getQuantity());
+		//cartItem.setQuantity(1);
+		cartItem.setPrice(cartItem.getProduct().getProduct_price()*cartItem.getQuantity());
+		//cartItem.setDiscountedPrice(cartItem.getProduct().getDiscountedPrice()*cartItem.getQuantity());
 		
-		
+		cartItem.setDiscountedPrice(0*cartItem.getQuantity());
 		CartItem createdCartItem=cartItemRepository.save(cartItem);
 		
 		return createdCartItem;
@@ -52,8 +52,9 @@ public class CartItemServiceImplementation implements CartItemService{
 		
 		if(user.getId().equals(userId)) {
 			item.setQuantity(cartItem.getQuantity());
-			item.setPrice(item.getQuantity()*item.getProduct().getPrice());
-			item.setDiscountedPrice(item.getProduct().getDiscountedPrice()*item.getQuantity());
+			item.setPrice(item.getQuantity()*item.getProduct().getProduct_price());
+			//item.setDiscountedPrice(item.getProduct().getDiscountedPrice()*item.getQuantity());
+			item.setDiscountedPrice(0*item.getQuantity());
 			
 		}
 		
@@ -62,9 +63,18 @@ public class CartItemServiceImplementation implements CartItemService{
 	}
 
 	@Override
-	public CartItem isCartItemExist(Cart cart, Product product, String size, Long userId) {
+	public CartItem isCartItemExist(Cart cart, Product product,  Long userId) {
 		 
-		CartItem cartItem=cartItemRepository.isCartItemExist(cart, product, size, userId);
+		CartItem cartItem=cartItemRepository.isCartItemExist(cart, product, userId);
+		
+		
+		
+		return cartItem;
+	}
+	@Override
+	public CartItem isGuestCartItemExist(Cart cart, Product product) {
+		 
+		CartItem cartItem=cartItemRepository.isGuestCartItemExist(cart, product);
 		
 		
 		
@@ -98,5 +108,4 @@ public class CartItemServiceImplementation implements CartItemService{
 		
 		throw new CartItemException("cart item not found with id "+cartItemId);
 	}
-*/
 }

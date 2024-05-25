@@ -83,7 +83,7 @@ public class UserProductController {
 			@RequestParam String q
 			)throws ProductException{
 		
-		List<Product> product=productService.searchProduct(q);
+		List<Product> product=productService.searchProductByTitle(q);
 		
 		
 		System.out.println("complete products");

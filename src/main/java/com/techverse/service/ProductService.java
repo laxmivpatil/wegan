@@ -30,7 +30,7 @@ public interface ProductService {
  	public List<Product> getNewestProducts(int days);
  	
  	
- 	
+ 	public List<Product> searchProductByTitle(String search);
  	
  	
  	
@@ -51,7 +51,7 @@ public interface ProductService {
 			Integer minDiscount,String sort,String stock,Integer pageNumber,Integer pageSize);
 	
 	
-	public List<Product> searchProduct(String searchparameter)throws ProductException;
+	 
 	
 	public List<Product> findAllProduct() ;
 	

@@ -125,5 +125,20 @@ public class ProductController {
 				        
 				        return response;
 	    }
+	 
+	 
+	 @GetMapping("/search")
+	    public Map<String,Object> searchProductByTitle(@RequestParam String search) {
+		 Map<String,Object> response = new HashMap<>();
+		 List<Product> product =productService.searchProductByTitle(search);
+		 response.put("product", product);
+			response.put("status", true);
+	        response.put("message", "product retrived Successfully");
+	        
+	        return response;
+	         
+	    }
+	 
+	 
 }
 

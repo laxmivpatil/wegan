@@ -19,6 +19,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -61,6 +63,14 @@ public class User {
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Review> reviews=new ArrayList<>();
 	
+	
+	@ManyToMany
+    @JoinTable(
+            name = "user_favorite_products",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> favoriteProducts = new ArrayList<>();
+	
 	private  LocalDateTime createdAt;
 	
 	public User() {
@@ -90,6 +100,14 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<Product> getFavoriteProducts() {
+		return favoriteProducts;
+	}
+
+	public void setFavoriteProducts(List<Product> favoriteProducts) {
+		this.favoriteProducts = favoriteProducts;
 	}
 
 	public String getName() {
