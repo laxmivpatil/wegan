@@ -39,6 +39,8 @@ public class Cart {
 	@Column(name="total_item")
 	private int totalItem;
 
+	@Column(name="product_count")
+	private int productCount=0;
 
 	private int totalDicountedPrice;
 
@@ -56,6 +58,7 @@ public class Cart {
 		this.totalItem = totalItem;
 		this.totalDicountedPrice = totalDicountedPrice;
 		this.discounte = discounte;
+		this.productCount=0;
 	}
 	public Long getId() {
 		return id;
@@ -98,6 +101,12 @@ public class Cart {
 	}
 	public void setDiscounte(int discounte) {
 		this.discounte = discounte;
+	}
+	public int getProductCount() {
+		return productCount;
+	}
+	public void setProductCount(int productCount) {
+		this.productCount = productCount;
 	}
 
 

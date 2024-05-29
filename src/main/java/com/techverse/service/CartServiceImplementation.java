@@ -113,7 +113,7 @@ public class CartServiceImplementation implements CartService {
 	public Cart findUserCart(Long userId) { 
 		
 		Cart cart=cartRepository.findByUserId(userId);
-		
+		int productCount=0;
 		int totalPrice=0;
 		int totalDiscountedPrice=0;
 		int totalItem=0;
@@ -122,6 +122,7 @@ public class CartServiceImplementation implements CartService {
 			totalPrice =totalPrice+cartItem.getPrice();
 			totalDiscountedPrice =totalDiscountedPrice+cartItem.getDiscountedPrice();
 			totalItem =totalItem+cartItem.getQuantity();
+			++productCount;
 		}
 		
 		
@@ -129,7 +130,7 @@ public class CartServiceImplementation implements CartService {
 		cart.setTotalItem(totalItem);
 		cart.setTotalPrice(totalPrice);
 		cart.setDiscounte(totalPrice-totalDiscountedPrice);
-		
+		cart.setProductCount(productCount);
 		
 		return cartRepository.save(cart);
 	}
