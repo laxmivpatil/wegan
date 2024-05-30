@@ -45,9 +45,7 @@ public class CartItemController {
 				User user=userService.findUserProfileByJwt(jwt);
 				cartItemService.removeCartItem(user.getId(), cartItemId);
 				
-				 ApiResponse res=new ApiResponse();
-				 res.setMessage("Item deleted from cart successfully");
-				 res.setStatus(true);
+				 
 				 
 				 
 				 response.put("cart", cartService.findUserCart(user.getId()));
@@ -57,16 +55,21 @@ public class CartItemController {
 				 
 				
 			}
-	@PutMapping("/cart")
-	public ResponseEntity<CartItem> updateCartItem(@PathVariable Long cartItemId,
+	@PutMapping("/{cartItemId}")
+	public ResponseEntity<Map<String,Object>> updateCartItem(@PathVariable Long cartItemId,
 			@RequestBody CartItem cartItem,
 			@RequestHeader("Authorization") String jwt)throws UserException,CartItemException{
 				
-				
+		 Map<String,Object> response = new HashMap<>();
+			
 				User user=userService.findUserProfileByJwt(jwt);
 				CartItem updatedCartItem=cartItemService.updateCartItem(user.getId(),cartItemId, cartItem);
-				 
-				 return new ResponseEntity<>(updatedCartItem,HttpStatus.OK);
+				 response.put("cart", cartService.findUserCart(user.getId()));
+					response.put("status", true);
+			        response.put("message", "Item Updated from cart successfully");
+			        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+				  
+				  
 				
 			}
 	
