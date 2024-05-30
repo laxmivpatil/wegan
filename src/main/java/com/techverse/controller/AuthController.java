@@ -1,5 +1,8 @@
 package com.techverse.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -91,8 +94,10 @@ public class AuthController {
 	
 	
 	@PostMapping("/signin")
-	public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest)throws UserException
+	public ResponseEntity<Map<String,Object>>loginUserHandler(@RequestBody LoginRequest loginRequest)throws UserException
 	{
+		 Map<String,Object> response = new HashMap<>();
+		   
 		String username= loginRequest.getEmail();
 		String password=loginRequest.getPassword(); 
 		 
@@ -103,9 +108,15 @@ public class AuthController {
 		
 		String token= jwtProvider.generateToken(authentication);
 		
-		AuthResponse authResponse=new AuthResponse(token, "login Success");
+		 
 		
-		return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.OK);
+		response.put("jwt", token);
+		response.put("status", true);
+        response.put("message", "login success");
+        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+
+		
+		 
 		
 		
 		
