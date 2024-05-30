@@ -1,5 +1,8 @@
 package com.techverse.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,14 +57,20 @@ public class CartController {
 	}
 	
 	@PutMapping("/api/cart/add")
-	public ResponseEntity<ApiResponse> addItemToCart(@RequestBody AddItemRequest req,
+	public ResponseEntity<Map<String,Object>>  addItemToCart(@RequestBody AddItemRequest req,
 			@RequestHeader("Authorization") String jwt) throws UserException,ProductException{
+		 Map<String,Object> response = new HashMap<>();
 		User user=userService.findUserProfileByJwt(jwt);
-		  cartService.addCartItem(user.getId(), req);
-		  ApiResponse res=new ApiResponse();
-			 res.setMessage("Item added to cart successfully");
-			 res.setStatus(true);
-			 return new ResponseEntity<>(res,HttpStatus.OK);
+		  Cart cart=cartService.addCartItem(user.getId(), req);
+		   
+		  
+		  
+		  response.put("ProductCount", cart.getProductCount());
+			response.put("status", true);
+	        response.put("message", "Item added to cart successfully");
+	        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+			 
+			 
 	}
 	@PutMapping("/cart/add")
 	public ResponseEntity<ApiResponse> addItemToGuestCart(@RequestBody AddItemRequest req

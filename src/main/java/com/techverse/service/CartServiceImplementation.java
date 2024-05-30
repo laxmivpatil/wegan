@@ -40,7 +40,7 @@ public class CartServiceImplementation implements CartService {
 		return cartRepository.save(cart);
 	}
 	@Override
-	public String addCartItem(Long userId, AddItemRequest req) throws ProductException {
+	public Cart addCartItem(Long userId, AddItemRequest req) throws ProductException {
 		Cart cart=cartRepository.findByUserId(userId);
 		
 		Product product=productService.findProductById(req.getProductId());
@@ -61,11 +61,12 @@ public class CartServiceImplementation implements CartService {
 			
 			CartItem createdCartItem=cartItemService.createCartitem(cartItem);
 			cart.getCartItems().add(createdCartItem);
-			
+			cart.setProductCount(cart.getProductCount()+1);
+			cartRepository.save(cart);
 		}
 		
 		
-		return "Item Add To Cart";
+		return cart;
 	}
 	
 	@Override
