@@ -1,5 +1,6 @@
 package com.techverse.controller;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +75,9 @@ public class AuthController {
 		createdUser.setEmail(email);
 		createdUser.setPassword(passwordEncoder.encode(password));
 		createdUser.setName(name);
+		createdUser.setGender("");
+		createdUser.setMobile("");
+		createdUser.setCreatedAt(LocalDateTime.now());
 		User savedUser=userRepository.save(createdUser);
 		 Cart cart= cartService.createCart(savedUser);
 		

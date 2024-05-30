@@ -36,34 +36,38 @@ public class User {
 	
 	private String name;
 	
+	@JsonIgnore
 	private String password;
 	
 	private String role;
 	
 	private String email;
 	
-	private String mobile;
+	private String mobile="";
 	
-	
+	private String gender="";
+	@JsonIgnore
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Address> address=new ArrayList<>();
 	
 	
+	@JsonIgnore
 	@Embedded
 	@ElementCollection
 	@CollectionTable(name="payment_information",joinColumns=@JoinColumn(name="user_id"))
 	private List<PaymentInformation> paymentInformation=new ArrayList<>();
 	
-	
+	 
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<Rating> ratings=new ArrayList<>();
 	
+	 
 	@JsonIgnore
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Review> reviews=new ArrayList<>();
 	
-	
+	@JsonIgnore
 	@ManyToMany
     @JoinTable(
             name = "user_favorite_products",
@@ -188,6 +192,14 @@ public class User {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 	
