@@ -98,7 +98,7 @@ public class AuthController {
 	
 	
 	@PostMapping("/signin")
-	public ResponseEntity<Map<String,Object>>loginUserHandler(@RequestBody LoginRequest loginRequest)throws UserException
+	public ResponseEntity<Map<String,Object>> loginUserHandler(@RequestBody LoginRequest loginRequest)throws UserException
 	{
 		 Map<String,Object> response = new HashMap<>();
 		   

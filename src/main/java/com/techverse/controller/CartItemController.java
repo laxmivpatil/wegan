@@ -1,5 +1,8 @@
 package com.techverse.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +33,28 @@ public class CartItemController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private CartService cartService;
+	
 	
 	@DeleteMapping("/{cartItemId}")
-	public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable Long cartItemId,
+	public ResponseEntity<Map<String,Object>> removeCartItem(@PathVariable Long cartItemId,
 			@RequestHeader("Authorization") String jwt)throws UserException,CartItemException{
 				
-				
+		 Map<String,Object> response = new HashMap<>();
 				User user=userService.findUserProfileByJwt(jwt);
 				cartItemService.removeCartItem(user.getId(), cartItemId);
+				
 				 ApiResponse res=new ApiResponse();
 				 res.setMessage("Item deleted from cart successfully");
 				 res.setStatus(true);
-				 return new ResponseEntity<>(res,HttpStatus.OK);
+				 
+				 
+				 response.put("cart", cartService.findUserCart(user.getId()));
+					response.put("status", true);
+			        response.put("message", "Item deleted from cart successfully");
+			        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+				 
 				
 			}
 	@PutMapping("/cart")

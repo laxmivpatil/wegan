@@ -120,7 +120,7 @@ public class CartServiceImplementation implements CartService {
 		int totalItem=0;
 		double tax=0.0;
 		double shipping=0.0;
-		double totalwithcharges;
+		double totalwithcharges=0.0;
 		
 		for(CartItem cartItem:cart.getCartItems()) {
 			totalPrice =totalPrice+cartItem.getPrice();
@@ -157,6 +157,9 @@ public class CartServiceImplementation implements CartService {
 		int totalPrice=0;
 		int totalDiscountedPrice=0;
 		int totalItem=0;
+		double tax=0.0;
+		double shipping=0.0;
+		double totalwithcharges=0.0;
 		
 		for(CartItem cartItem:cart.getCartItems()) {
 			totalPrice =totalPrice+cartItem.getPrice();
@@ -170,6 +173,14 @@ public class CartServiceImplementation implements CartService {
 		cart.setTotalPrice(totalPrice);
 		cart.setDiscounte(totalPrice-totalDiscountedPrice);
 		
+		tax=totalPrice*5/100;
+		cart.setTax(tax);
+		
+		shipping=totalPrice*7/100;
+		cart.setShipping(shipping);
+		
+		totalwithcharges=totalPrice+tax+shipping;
+		cart.setTotalpricewithcharges(totalwithcharges);
 		
 		return cartRepository.save(cart);
 	}
