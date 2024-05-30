@@ -13,6 +13,8 @@ public interface CartItemService {
 	
 	public CartItem updateCartItem(Long userId,Long id,CartItem cartItem) throws CartItemException ,UserException;
 	
+	public void clearCart(Long userId); 
+	
 	public CartItem isCartItemExist(Cart cart,Product product,Long userId);
 	
 	public CartItem isGuestCartItemExist(Cart cart, Product product);

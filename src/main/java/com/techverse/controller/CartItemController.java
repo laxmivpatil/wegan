@@ -55,6 +55,18 @@ public class CartItemController {
 				 
 				
 			}
+	@DeleteMapping("/clear")
+	public ResponseEntity<Map<String, Object>> clearCart(@RequestHeader("Authorization") String jwt) throws UserException {
+	    Map<String, Object> response = new HashMap<>();
+	    User user = userService.findUserProfileByJwt(jwt);
+	    cartItemService.clearCart(user.getId());
+
+	    response.put("cart", cartService.findUserCart(user.getId()));
+	    response.put("status", true);
+	    response.put("message", "Cart cleared successfully");
+	    return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
 	@PutMapping("/{cartItemId}")
 	public ResponseEntity<Map<String,Object>> updateCartItem(@PathVariable Long cartItemId,
 			@RequestBody CartItem cartItem,

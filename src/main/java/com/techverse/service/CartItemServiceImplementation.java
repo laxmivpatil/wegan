@@ -1,5 +1,6 @@
 package com.techverse.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,12 @@ public class CartItemServiceImplementation implements CartItemService{
 		
 	}
 
+	@Override
+	public void clearCart(Long userId) {
+	    List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
+	    cartItemRepository.deleteAll(cartItems);
+	}
+	
 	@Override
 	public CartItem findCartItemById(Long cartItemId) throws CartItemException {
 		//find
