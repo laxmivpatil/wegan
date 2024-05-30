@@ -45,6 +45,13 @@ public class Cart {
 	private int totalDicountedPrice;
 
 	private int discounte;
+	
+	private double tax;
+	
+	private double shipping;
+	
+	private double totalpricewithcharges;
+	
 	public Cart() {
 		// TODO Auto-generated constructor stub
 	}
@@ -107,6 +114,24 @@ public class Cart {
 	}
 	public void setProductCount(int productCount) {
 		this.productCount = productCount;
+	}
+	public double getTax() {
+		return tax;
+	}
+	public void setTax(double tax) {
+		this.tax = tax;
+	}
+	public double getShipping() {
+		return shipping;
+	}
+	public void setShipping(double shipping) {
+		this.shipping = shipping;
+	}
+	public double getTotalpricewithcharges() {
+		return totalpricewithcharges;
+	}
+	public void setTotalpricewithcharges(double totalpricewithcharges) {
+		this.totalpricewithcharges = totalpricewithcharges;
 	}
 
 
