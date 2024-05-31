@@ -59,8 +59,9 @@ public class AuthController {
 
 
 	@PostMapping("/signup")
-	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody UserRequest user)throws UserException
+	public ResponseEntity<Map<String,Object>>  createUserHandler(@RequestBody UserRequest user)throws UserException
 	{
+		Map<String,Object> response = new HashMap<>();
 		String email=user.getEmail();
 		String password=user.getPassword();
 		String name=user.getName();
@@ -88,9 +89,17 @@ public class AuthController {
 		
 		String token= jwtProvider.generateToken(authentication);
 		
-		AuthResponse authResponse=new AuthResponse(token, "Signup Success");
+	 
 		
-		return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.CREATED);
+		
+		
+		response.put("jwt", token);
+		response.put("status", true);
+        response.put("message", "Signup Success");
+        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+
+		
+		 
 		
 		
 		
