@@ -24,6 +24,7 @@ import com.techverse.model.Cart;
 import com.techverse.model.User;
 import com.techverse.repository.UserRepository;
 import com.techverse.request.LoginRequest;
+import com.techverse.request.UserRequest;
 import com.techverse.response.AuthResponse;
 import com.techverse.service.CartService;
 import com.techverse.service.CustomUserServiceImplementation;
@@ -58,12 +59,12 @@ public class AuthController {
 
 
 	@PostMapping("/signup")
-	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user)throws UserException
+	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody UserRequest user)throws UserException
 	{
 		String email=user.getEmail();
 		String password=user.getPassword();
 		String name=user.getName();
-		
+		System.out.println(password);
 		User isEmailExist=userRepository.findByEmail(email);
 		 
 		if(isEmailExist!=null) {
