@@ -65,39 +65,42 @@ public class ProductServiceImplementation implements ProductService{
 
 	        // Save product and handle images
 	        Product savedProduct = productRepository.save(product);
+	        
 	        String path="";
-	       if(image1!=null)
+	       if(image1!=null && !image1.isEmpty())
 	       {
 	    	   path=storageService.uploadFileOnAzure(image1);
+	    	   System.out.println("hi their"+path);
 	       }
 	       
 	       savedProduct.setImageUrl1(path);
 	       path="";
-	       if(image2!=null)
+	       if(image2!=null && !image2.isEmpty())
 	       {
+	    	   System.out.println("hi their"+path);
 	    	   path=storageService.uploadFileOnAzure(image2);
 	       }
 	       savedProduct.setImageUrl2(path);
 	       path="";
-	       if(image3!=null)
+	       if(image3!=null && !image3.isEmpty())
 	       {
 	    	   path=storageService.uploadFileOnAzure(image3);
 	       }
 	       savedProduct.setImageUrl3(path);
 	       path="";
-	       if(image4!=null)
+	       if(image4!=null && !image4.isEmpty())
 	       {
 	    	   path=storageService.uploadFileOnAzure(image4);
 	       }
 	       savedProduct.setImageUrl4(path);
 	       path="";
-	       if(image5!=null)
+	       if(image5!=null && !image5.isEmpty())
 	       {
 	    	   path=storageService.uploadFileOnAzure(image5);
 	       }
 	       savedProduct.setImageUrl5(path);
 	       path="";
-	       if(image6!=null)
+	       if(image6!=null && !image6.isEmpty())
 	       {
 	    	   path=storageService.uploadFileOnAzure(image6);
 	       }

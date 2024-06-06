@@ -43,9 +43,9 @@ public class CartController {
 	}
 	//for unregisterd user
  	@GetMapping("/cart/")
-	public ResponseEntity<Cart> findGuestCartById(@RequestParam Long cartId) throws UserException{
+	public ResponseEntity<Cart> findGuestCartById(@RequestParam String cartId) throws UserException{
 		 
-		Cart cart= cartService.findGuestCart(cartId);
+		Cart cart= cartService.findGuestCart(Long.parseLong(cartId));
 		 return new ResponseEntity<Cart>(cart,HttpStatus.OK);
 	}
  	

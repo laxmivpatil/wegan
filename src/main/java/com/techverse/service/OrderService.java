@@ -8,7 +8,7 @@ import com.techverse.model.Order;
 import com.techverse.model.User;
 
 public interface OrderService {
-	/*
+	 
 	public Order createOrder(User user, Address address);
 	
 	public Order findOrderById(Long orderId) throws OrderException;
@@ -29,7 +29,7 @@ public interface OrderService {
 	
 	public void deleteOrder(Long orderId)throws OrderException;
 	
-	 */
+	  
 	
 	
 	

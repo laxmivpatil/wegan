@@ -46,7 +46,7 @@ public class CartItemServiceImplementation implements CartItemService{
 	}
 
 	@Override
-	public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws CartItemException, UserException {
+	public CartItem updateUserCartItem(Long userId, Long id, CartItem cartItem) throws CartItemException, UserException {
 		 
 		CartItem item=findCartItemById(id);
 		User user=userService.findUserById(item.getUserId());
@@ -59,6 +59,22 @@ public class CartItemServiceImplementation implements CartItemService{
 			
 		}
 		
+		
+		return cartItemRepository.save(item);
+	}
+	
+	@Override
+	public CartItem updateGuestCartItem(Long id, CartItem cartItem) throws CartItemException {
+		 
+		CartItem item=findCartItemById(id); 
+		
+		 
+			item.setQuantity(cartItem.getQuantity());
+			item.setPrice(item.getQuantity()*item.getProduct().getProduct_price());
+			//item.setDiscountedPrice(item.getProduct().getDiscountedPrice()*item.getQuantity());
+			item.setDiscountedPrice(0*item.getQuantity());
+			
+		 
 		
 		return cartItemRepository.save(item);
 	}
@@ -83,7 +99,7 @@ public class CartItemServiceImplementation implements CartItemService{
 	}
 
 	@Override
-	public void removeCartItem(Long userId, Long cartItemId) throws CartItemException, UserException {
+	public void removeUserCartItem(Long userId, Long cartItemId) throws CartItemException, UserException {
 		
 		CartItem cartItem=findCartItemById(cartItemId);
 		User user=userService.findUserById(cartItem.getUserId());
@@ -101,9 +117,42 @@ public class CartItemServiceImplementation implements CartItemService{
 	}
 
 	@Override
-	public void clearCart(Long userId) {
+	public Cart removeGuestCartItem( Long cartItemId) throws CartItemException {
+		
+		CartItem cartItem=findCartItemById(cartItemId);
+		 
+			cartItemRepository.deleteById(cartItemId);
+		 
+		 return cartItem.getCart();
+		
+	}
+	@Override
+	public void clearUserCart(Long userId) {
 	    List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
+	    
+	     
 	    cartItemRepository.deleteAll(cartItems);
+	}
+	@Override
+	public Optional<Cart> clearGuestCart(Long cartId) {
+		Optional<Cart> cart=cartRepository.findById(cartId);
+	    List<CartItem> cartItems = cartItemRepository.findByCartId(cartId);
+	    
+	  
+	    cartItemRepository.deleteAll(cartItems);
+	    if(cart.isPresent()) {
+	    	cart.get().setTotalPrice(0.0);
+	        cart.get().setTotalItem(0);
+	        cart.get().setProductCount(0);
+	        cart.get().setTotalDicountedPrice(0);
+	        cart.get().setDiscounte(0);
+	        cart.get().setTax(0.0);
+	        cart.get().setShipping(0.0);
+	        cart.get().setTotalpricewithcharges(0.0);
+	    	
+	     cartRepository.save(cart.get());
+	    }
+	    return cart;
 	}
 	
 	@Override

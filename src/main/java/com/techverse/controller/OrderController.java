@@ -27,7 +27,7 @@ import com.techverse.service.UserService;
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
-	/*
+	 
 	@Autowired
 	private OrderService orderService;
 	
@@ -86,5 +86,5 @@ public class OrderController {
 		
 	}
 	
-*/
+
 }

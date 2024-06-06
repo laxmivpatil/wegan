@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,20 +24,34 @@ import com.techverse.repository.OrderRepository;
 import com.techverse.response.ApiResponse;
 import com.techverse.response.PaymentLinkResponse;
 import com.techverse.service.OrderService;
+import com.techverse.service.RazorpayService;
 import com.techverse.service.UserService;
 
 @RestController
-@RequestMapping("/api/payments")
+@RequestMapping("")
 public class PaymentController {
+	 
+	
+	
+	 
+	
+	
+	
+	 @Autowired
+	    private RazorpayService razorpayService;
+
+	    @PostMapping("/payment/initiate")
+	    public ResponseEntity<String> initiatePayment() {
+	        try {
+	            String orderId = razorpayService.initiatePayment(1000, "INR", "abcdefghijklmnopqrstuv");
+	            return ResponseEntity.ok(orderId);
+	        } catch (RazorpayException e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(500).body("Payment initiation failed");
+	        }
+	    }
+	
 	/*
-	
-	
-	@Value("${razorpay.api.key}")
-	public String apiKey;
-	
-	@Value("${razorpay.api.secret}")
-	public String apiSecret;
-	
 	@Autowired
 	private OrderService orderService;
 	

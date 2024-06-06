@@ -139,6 +139,7 @@ public class StorageService {
           // Get the original file extension
           String originalFileName = file.getOriginalFilename();
           String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+          System.out.println(originalFileName+"   "+fileExtension);
 
           // Generate a unique name using timestamp and UUID
           String uniqueBlobName = Instant.now().toEpochMilli() + "_" + UUID.randomUUID().toString() + fileExtension;
