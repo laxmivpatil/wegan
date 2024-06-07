@@ -5,6 +5,7 @@ public class UserRequest {
 	private String name;
 	private String email;
 	private String password;
+	private String mobileNo;
 	public String getName() {
 		return name;
 	}
@@ -32,6 +33,12 @@ public class UserRequest {
 	public UserRequest() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public String getMobileNo() {
+		return mobileNo;
+	}
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 	
 	

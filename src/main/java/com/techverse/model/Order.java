@@ -58,6 +58,12 @@ public class Order {
 	
 	private LocalDateTime createdAt;
 	
+private double tax;
+	
+	private double shipping;
+	
+	private double totalpricewithcharges;
+	
 	
 	
 	
@@ -198,6 +204,30 @@ public class Order {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public double getTax() {
+		return tax;
+	}
+
+	public void setTax(double tax) {
+		this.tax = tax;
+	}
+
+	public double getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(double shipping) {
+		this.shipping = shipping;
+	}
+
+	public double getTotalpricewithcharges() {
+		return totalpricewithcharges;
+	}
+
+	public void setTotalpricewithcharges(double totalpricewithcharges) {
+		this.totalpricewithcharges = totalpricewithcharges;
 	}
 	
 	

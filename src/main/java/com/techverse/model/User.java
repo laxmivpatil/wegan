@@ -50,7 +50,8 @@ public class User {
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Address> address=new ArrayList<>();
 	
-	
+	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<ShippingAddress> shippingAddresses = new ArrayList<>();
 	@JsonIgnore
 	@Embedded
 	@ElementCollection
@@ -200,6 +201,14 @@ public class User {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public List<ShippingAddress> getShippingAddresses() {
+		return shippingAddresses;
+	}
+
+	public void setShippingAddresses(List<ShippingAddress> shippingAddresses) {
+		this.shippingAddresses = shippingAddresses;
 	}
 	
 	
