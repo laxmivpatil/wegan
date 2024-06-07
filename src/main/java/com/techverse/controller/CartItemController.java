@@ -122,7 +122,7 @@ public class CartItemController {
 			
 			 
 				CartItem updatedCartItem=cartItemService.updateGuestCartItem(cartItemId, cartItem);
-				 response.put("cart",updatedCartItem.getCart());
+				 response.put("cart",   cartService.findGuestCart(updatedCartItem.getCart().getId()));
 					response.put("status", true);
 			        response.put("message", "Item Updated from cart successfully");
 			        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
