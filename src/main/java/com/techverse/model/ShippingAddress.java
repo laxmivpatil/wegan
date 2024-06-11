@@ -9,122 +9,168 @@ public class ShippingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String street1;
-    private String street2;
-    private String city;
-    private String pincode;
+    private String fullName;
     private String mobile;
-    private String alternateMobile;
-    private String landmark;
+    private String pincode;
+    private String locality;
+    private String address;
+    private String city;
     private String state;
-    private String country;
+    private String landmark;
+    private String alternateMobile;
     private String addressType;
+    
+    
+    private String country;
     private boolean setDefaultAddress=true;
     
-    @Override
-	public String toString() {
-		return "ShippingAddress [id=" + id + ", street1=" + street1 + ", street2=" + street2 + ", city=" + city
-				+ ", pincode=" + pincode + ", mobile=" + mobile + ", alternateMobile=" + alternateMobile + ", landmark="
-				+ landmark + ", state=" + state + ", country=" + country + ", addressType=" + addressType
-				+ ", setDefaultAddress=" + setDefaultAddress + ", user=" + user + "]";
-	}
+   
 	@JsonIgnore
     @ManyToOne
     private User user;
-    
-    
-    
-    
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+
+
 	public Long getId() {
 		return id;
 	}
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getStreet1() {
-		return street1;
+
+
+	public String getFullName() {
+		return fullName;
 	}
-	public void setStreet1(String street1) {
-		this.street1 = street1;
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getStreet2() {
-		return street2;
-	}
-	public void setStreet2(String street2) {
-		this.street2 = street2;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getPincode() {
-		return pincode;
-	}
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
+
+
 	public String getMobile() {
 		return mobile;
 	}
+
+
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public String getAlternateMobile() {
-		return alternateMobile;
+
+
+	public String getPincode() {
+		return pincode;
 	}
-	public void setAlternateMobile(String alternateMobile) {
-		this.alternateMobile = alternateMobile;
+
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
 	}
-	public String getLandmark() {
-		return landmark;
+
+
+	public String getLocality() {
+		return locality;
 	}
-	public void setLandmark(String landmark) {
-		this.landmark = landmark;
+
+
+	public void setLocality(String locality) {
+		this.locality = locality;
 	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
 	public String getState() {
 		return state;
 	}
+
+
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getCountry() {
-		return country;
+
+
+	public String getLandmark() {
+		return landmark;
 	}
-	public void setCountry(String country) {
-		this.country = country;
+
+
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
 	}
+
+
+	public String getAlternateMobile() {
+		return alternateMobile;
+	}
+
+
+	public void setAlternateMobile(String alternateMobile) {
+		this.alternateMobile = alternateMobile;
+	}
+
+
 	public String getAddressType() {
 		return addressType;
 	}
+
+
 	public void setAddressType(String addressType) {
 		this.addressType = addressType;
 	}
+
+
+	public String getCountry() {
+		return country;
+	}
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
 	public boolean isSetDefaultAddress() {
 		return setDefaultAddress;
 	}
+
+
 	public void setSetDefaultAddress(boolean setDefaultAddress) {
 		this.setDefaultAddress = setDefaultAddress;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
     
     
     
     
-    
-    
-    
-    
-    
-    
-    
-
-    // Getters and setters
-    // Constructors
+	 
 }

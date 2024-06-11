@@ -155,7 +155,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 
         return ResponseEntity.ok(response);
     }
-    @PutMapping("/editshippingaddress/{addressId}")
+  /*  @PutMapping("/editshippingaddress/{addressId}")
     public ResponseEntity<Map<String, Object>> editShippingAddress(
             @PathVariable("addressId") Long addressId,
             @RequestBody ShippingAddress updatedAddress,
@@ -203,7 +203,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 
         return ResponseEntity.ok(response);
     }
-    
+    */
     
     @DeleteMapping("/deleteshippingaddress/{addressId}")
     public ResponseEntity<Map<String, Object>> deleteShippingAddress(
