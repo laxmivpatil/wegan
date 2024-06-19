@@ -155,7 +155,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 
         return ResponseEntity.ok(response);
     }
-  /*  @PutMapping("/editshippingaddress/{addressId}")
+     @PutMapping("/editshippingaddress/{addressId}")
     public ResponseEntity<Map<String, Object>> editShippingAddress(
             @PathVariable("addressId") Long addressId,
             @RequestBody ShippingAddress updatedAddress,
@@ -182,8 +182,9 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
         }
 
         // Update the existing address with the new data
-        existingAddress.setStreet1(updatedAddress.getStreet1());
-        existingAddress.setStreet2(updatedAddress.getStreet2());
+     //   existingAddress.setStreet1(updatedAddress.getStreet1());
+    //    existingAddress.setStreet2(updatedAddress.getStreet2());
+        existingAddress.setFullName(updatedAddress.getFullName());
         existingAddress.setCity(updatedAddress.getCity());
         existingAddress.setPincode(updatedAddress.getPincode());
         existingAddress.setMobile(updatedAddress.getMobile());
@@ -203,7 +204,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 
         return ResponseEntity.ok(response);
     }
-    */
+   
     
     @DeleteMapping("/deleteshippingaddress/{addressId}")
     public ResponseEntity<Map<String, Object>> deleteShippingAddress(
