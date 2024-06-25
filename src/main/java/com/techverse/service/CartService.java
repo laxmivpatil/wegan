@@ -1,6 +1,8 @@
 package com.techverse.service;
 
+import com.techverse.exception.CartItemException;
 import com.techverse.exception.ProductException;
+import com.techverse.exception.UserException;
 import com.techverse.model.Cart;
 import com.techverse.model.User;
 import com.techverse.request.AddItemRequest;
@@ -19,5 +21,7 @@ public interface CartService {
 	public Cart findGuestCart(Long cartId);
 	 
 	public Cart createTempCart();
+
+	
 
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -110,10 +111,9 @@ public class CartItemController {
 					response.put("status", true);
 			        response.put("message", "Item Updated from cart successfully");
 			        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-				  
-				  
-				
 			}
+	
+	
 	@PutMapping("/cart_items/{cartItemId}")
 	public ResponseEntity<Map<String,Object>> updateGuestCartItem(@PathVariable Long cartItemId,
 			@RequestBody CartItem cartItem)throws UserException,CartItemException{
@@ -127,6 +127,18 @@ public class CartItemController {
 			        response.put("message", "Item Updated from cart successfully");
 			        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
 }
+	
+	
+	 @PostMapping("/carts/merge")
+	    public ResponseEntity<Cart> mergeCarts(@RequestHeader("Authorization") String token, @RequestParam Long cartId) {
+	        try {
+	            User user = userService.findUserProfileByJwt(token);
+	            Cart mergedCart = cartItemService.mergeCarts(user.getId(), cartId);
+	            return ResponseEntity.ok(mergedCart);
+	        } catch (UserException | CartItemException e) {
+	            return ResponseEntity.badRequest().body(null);
+	        }
+	    }
 	
   
 }

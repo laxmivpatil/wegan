@@ -61,9 +61,10 @@ public class CartController {
 			@RequestHeader("Authorization") String jwt) throws UserException,ProductException{
 		 Map<String,Object> response = new HashMap<>();
 		User user=userService.findUserProfileByJwt(jwt);
+		System.out.println("fhdjgjfhf"+user.getId());
 		  Cart cart=cartService.addCartItem(user.getId(), req);
 		   
-		  
+		  Cart updatedCart=cartService.findUserCart(user.getId());
 		  
 		  response.put("ProductCount", cart.getProductCount());
 			response.put("status", true);
@@ -77,6 +78,7 @@ public class CartController {
 			 ) throws UserException,ProductException{
 	 
 		  cartService.addGuestCartItem(req);
+		  
 		  ApiResponse res=new ApiResponse();
 			 res.setMessage("Item added to cart successfully");
 			 res.setStatus(true);

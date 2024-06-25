@@ -1,9 +1,13 @@
 package com.techverse.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.techverse.exception.CartItemException;
 import com.techverse.exception.ProductException;
+import com.techverse.exception.UserException;
 import com.techverse.model.Cart;
 import com.techverse.model.CartItem;
 import com.techverse.model.Product;
@@ -23,6 +27,9 @@ public class CartServiceImplementation implements CartService {
 	@Autowired
 	private ProductService productService;  
 	
+
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public Cart createCart(User user) {   
@@ -42,12 +49,13 @@ public class CartServiceImplementation implements CartService {
 	@Override
 	public Cart addCartItem(Long userId, AddItemRequest req) throws ProductException {
 		Cart cart=cartRepository.findByUserId(userId);
-		
+		 System.out.println("hfjkhjhjhgjghjghjgh"+cart.getId());
 		Product product=productService.findProductById(req.getProductId());
 		
 		CartItem isPresent=cartItemService.isCartItemExist(cart, product, userId);
 		
 		if(isPresent==null) {
+			System.out.println("hfjkhjhjhgjghjghjgh"+cart.getId());
 			CartItem cartItem=new CartItem();
 			cartItem.setProduct(product);
 			cartItem.setCart(cart);
@@ -60,12 +68,12 @@ public class CartServiceImplementation implements CartService {
 			cartItem.setSize(req.getSize());
 			
 			CartItem createdCartItem=cartItemService.createCartitem(cartItem);
+			System.out.println(cart.getCartItems().size());
 			cart.getCartItems().add(createdCartItem);
 			cart.setProductCount(cart.getProductCount()+1);
-			cartRepository.save(cart);
+			 
 		}
-		
-		
+		 cartRepository.save(cart);
 		return cart;
 	}
 	
@@ -93,7 +101,7 @@ public class CartServiceImplementation implements CartService {
 			cart.getCartItems().add(createdCartItem);
 			
 		}
-		
+		 findGuestCart(cart.getId());
 		
 		return "Item Add To Cart";
 	}
@@ -184,5 +192,7 @@ public class CartServiceImplementation implements CartService {
 		
 		return cartRepository.save(cart);
 	}
- 
+	
+	
+	
 }
