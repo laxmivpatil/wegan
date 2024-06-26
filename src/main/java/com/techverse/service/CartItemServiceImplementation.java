@@ -254,7 +254,7 @@ public class CartItemServiceImplementation implements CartItemService{
 			userCart.setTotalpricewithcharges(totalwithcharges);
 			
 			
-			//cartRepository.delete(givenCart);
+			 cartRepository.delete(givenCart);
 			return cartRepository.save(userCart);
 	        
 	        
