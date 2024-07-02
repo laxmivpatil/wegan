@@ -111,7 +111,7 @@ public class AuthController {
 
 	        User savedUser = userRepository.save(user);
 
-	        if (userRequest.getRole().equals("BUYER") && !existingUserOpt.isPresent()) {
+	        if (userRequest.getRole().equals("buyer") && !existingUserOpt.isPresent()) {
 	            Cart cart = cartService.createCart(savedUser);
 	        }
 
