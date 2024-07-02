@@ -2,41 +2,60 @@ package com.techverse.config;
    
 
 import java.util.Date;
-
+import io.jsonwebtoken.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.techverse.model.UserPrincipal;
+
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
+
 
 @Service
 public class JwtProvider {
 	
-	SecretKey key=Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
+	private final SecretKey jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+	private final int jwtExpirationInMs = 604800000; // 7 days
 	
-	public String generateToken(Authentication auth)
-	{
-		String jwt=Jwts.builder()
-				.setIssuedAt(new Date())
-				.setExpiration(new Date(new Date().getTime()+846000000))
-				.claim("email", auth.getName())
-				.signWith(key).compact();
+	public String generateToken(Authentication authentication) {
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
-				
-		return jwt;
-	}
-	
-	public String getEmailfromToken(String jwt) {
-		jwt=jwt.substring(7);
-		Claims claims= Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
-		
-		String email=String.valueOf(claims.get("email"));
-		
-		return email;
-	}
-	
+        return Jwts.builder()
+                .setSubject(Long.toString(userPrincipal.getId()))
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
 
+	public String getUserIdFromJWT(String token) {
+		
+	    Claims claims = Jwts.parser()
+	            .setSigningKey(jwtSecret)
+	            .parseClaimsJws(token)
+	            .getBody();
+	    System.out.println("jhfgdjfghjdf");
+	    return claims.getSubject();
+	}
+
+    public boolean validateToken(String authToken) {
+        try {
+            Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+            return false;
+        }
+    }
 }

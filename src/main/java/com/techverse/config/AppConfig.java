@@ -2,13 +2,17 @@ package com.techverse.config;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -16,11 +20,21 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.techverse.service.CustomUserServiceImplementation;
+
 @Configuration
 @EnableWebSecurity
 public class AppConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
+	@Autowired
+    private JwtValidator jwtValidator;
+	
+	 @Autowired
+	    private CustomUserServiceImplementation userDetailsService;
+
+	 
+	
+   /* @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -31,6 +45,18 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .cors();
     }
+    */
+	  @Override
+	    protected void configure(HttpSecurity http) throws Exception {
+	        http
+	            .csrf().disable()
+	            .authorizeRequests()
+	            .antMatchers("/api/**").authenticated()
+	            .anyRequest().permitAll()
+	            .and()
+	            .addFilterBefore(jwtValidator, BasicAuthenticationFilter.class)
+	            .cors();
+	  }
 
     @Bean
     public CorsFilter corsFilter() {
@@ -54,10 +80,26 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+    
+    
+   
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+  
 }
 

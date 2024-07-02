@@ -119,10 +119,26 @@ public class ProductServiceImplementation implements ProductService{
 	        return productRepository.findByCategoryIdOrderByProductPriceDesc(categoryId);
 	    }
 	 
+	 
 	 @Override
 	 public List<Product> getProductsByCategoryIdSortedByPriceASC(Long categoryId) {
 	        return productRepository.findByCategoryIdOrderByProductPriceASC(categoryId);
 	    }
+	 
+	 
+	 @Override
+	 public List<Product> getProductsBySortedByPriceDesc() {
+	        return productRepository.findByOrderByProductPriceDesc();
+	    }
+	 
+	 
+	 @Override
+	 public List<Product> getProductsBySortedByPriceASC() {
+	        return productRepository.findByOrderByProductPriceASC();
+	    }
+	 
+	 
+	 
 	 
 	 @Override
 	 public List<Product> getNewestProductsByCategory(long categoryId, int days) {

@@ -25,6 +25,10 @@ public interface ProductService {
 	
  	public List<Product> getProductsByCategoryIdSortedByPriceASC(Long categoryId);
 	
+public List<Product> getProductsBySortedByPriceDesc();
+	
+ 	public List<Product> getProductsBySortedByPriceASC();
+	
  	public List<Product> getNewestProductsByCategory(long categoryId, int days);
 	
  	public List<Product> getNewestProducts(int days);

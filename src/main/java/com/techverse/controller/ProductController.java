@@ -83,7 +83,34 @@ public class ProductController {
 				        return response;
 	    }
 	 
-	 
+	 @GetMapping("/price-high-low")
+	    public Map<String,Object> getProductsBySortedByPriceDesc() {
+		 
+		 
+		 Map<String,Object> response = new HashMap<>();
+	    	List<Product> product=productService.getProductsBySortedByPriceDesc();
+	    	response.put("product", product);
+			response.put("status", true);
+	        response.put("message", "product retrived Successfully");
+	        
+	        return response;
+	         
+	    }
+
+	 @GetMapping("/price-low-high")
+	    public  Map<String,Object> getProductsBySortedByPriceASC() {
+		 Map<String,Object> response = new HashMap<>();
+		   
+		 List<Product> product=productService.getProductsBySortedByPriceASC();
+			    	response.put("product", product);
+					response.put("status", true);
+			        response.put("message", "product retrived Successfully");
+			        
+			        return response;
+		 
+		 
+	         
+	    }
 	 @GetMapping("/allproducts")
 	    public Map<String, Object>  getAllProducts() {
 			Map<String,Object> response = new HashMap<>();

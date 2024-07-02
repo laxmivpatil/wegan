@@ -6,6 +6,7 @@ public class UserRequest {
 	private String email;
 	private String password;
 	private String mobileNo;
+	private String role;
 	public String getName() {
 		return name;
 	}
@@ -39,6 +40,12 @@ public class UserRequest {
 	}
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	
