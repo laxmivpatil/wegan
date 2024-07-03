@@ -83,12 +83,12 @@ public class AuthController {
 	            //request for buyer and allready registered as a buyer
 	            if (user.getRole().equals(role)) {
 	                response.put("status", false);
-	                response.put("message", "Your email is already register as a " + userRequest.getRole()+ " please login");
+	                response.put("message", "Your email is already register as a " + userRequest.getRole()+ " please login.");
 	                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
 	            else {
 	            	 response.put("status", false);
-		                response.put("message", "Your email is already register as a " + user.getRole()+ " please login as a "+user.getRole()+ " or use another email to registered as a "+role);
+		                response.put("message", "Your email is already register as a " + user.getRole()+ " please login as a "+user.getRole()+ " or use another email to registered as a "+role+".");
 		                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
 	            // Add the new role to the existing user
@@ -136,21 +136,21 @@ public class AuthController {
 
 	        Optional<User> userOpt = userRepository.findByEmail(loginRequest.getEmail());
 	        if (!userOpt.isPresent()) {
-	            throw new UserException("Your email is not registered as a "+loginRequest.getRole()+". please Signup first.");
+	            throw new UserException("Your email is not registered as a "+loginRequest.getRole()+". please Sign Up first.");
 	        }
 	      
 	        
 	        User user = userOpt.get();
 	        if(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
 	        if(!user.getRole().equals(loginRequest.getRole())) {
-	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Registerd as a "+loginRequest.getRole()+" using different email");
+	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Register as a "+loginRequest.getRole()+" using different email.");
 	        }
 	        }
 	        if(!user.getRole().equals(loginRequest.getRole())) {
-	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Registerd as a "+loginRequest.getRole()+" using different email");
+	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Register as a "+loginRequest.getRole()+" using different email.");
 	        }
 	        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-	            throw new UserException("Invalid password");
+	            throw new UserException("Invalid password.");
 	        }
 
 	       /* Role role = roleRepository.findByName(loginRequest.getRole())
