@@ -83,12 +83,14 @@ public class AuthController {
 	            //request for buyer and allready registered as a buyer
 	            if (user.getRole().equals(role)) {
 	                response.put("status", false);
-	                response.put("message", "Your email is already register as a " + userRequest.getRole()+ " please login.");
+	                response.put("message", "Email already registered as " + userRequest.getRole()+ " Please Login.");
 	                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
 	            else {
+	            	
+	            	//Email already registered as seller. Log in as seller or use another email to register as buyer.
 	            	 response.put("status", false);
-		                response.put("message", "Your email is already register as a " + user.getRole()+ " please login as a "+user.getRole()+ " or use another email to registered as a "+role+".");
+		                response.put("message", "Email already registered as " + user.getRole()+ " Log in as "+user.getRole()+ " or use another email to register as "+role+".");
 		                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
 	            // Add the new role to the existing user
@@ -126,7 +128,7 @@ public class AuthController {
 
 	        response.put("jwt", jwt);
 	        response.put("status", true);
-	        response.put("message", "Signup Success");
+	        response.put("message", "Sign Up Success");
 	        return new ResponseEntity<>(response, HttpStatus.OK);
 	    }
 
@@ -136,19 +138,22 @@ public class AuthController {
 
 	        Optional<User> userOpt = userRepository.findByEmail(loginRequest.getEmail());
 	        if (!userOpt.isPresent()) {
-	            throw new UserException("Your email is not registered as a "+loginRequest.getRole()+". please Sign Up first.");
+	            throw new UserException("Email not registered. Please sign up as "+loginRequest.getRole()+".");
 	        }
 	      
 	        
 	        User user = userOpt.get();
 	        if(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
 	        if(!user.getRole().equals(loginRequest.getRole())) {
-	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Register as a "+loginRequest.getRole()+" using different email.");
+	        	
+	        	
+	        	//Email not registered as buyer. Log in as seller or register with a different email.
+	        	 throw new UserException("Email not registered as  "+loginRequest.getRole()+ ", Log in as "+user.getRole()+" or register with a different email.");
 	        }
 	        }
 	        if(!user.getRole().equals(loginRequest.getRole())) {
-	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Register as a "+loginRequest.getRole()+" using different email.");
-	        }
+	       	 throw new UserException("Email not registered as  "+loginRequest.getRole()+", Log in as "+user.getRole()+" or register with a different email.");
+	 	    	    }
 	        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
 	            throw new UserException("Invalid password.");
 	        }
@@ -173,4 +178,9 @@ public class AuthController {
 	    }
 	 
 
+	  
+	  
+	  //Email not registered. Please sign up as a buyer.
+	  //Email already registered as seller. Log in as seller or use another email to register as buyer.
+	  //Email not registered as buyer. Log in as seller or register with a different email.
 }
