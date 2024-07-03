@@ -83,14 +83,14 @@ public class AuthController {
 	            //request for buyer and allready registered as a buyer
 	            if (user.getRole().equals(role)) {
 	                response.put("status", false);
-	                response.put("message", "Email already registered as " + userRequest.getRole()+ " Please Login.");
+	                response.put("message", "Email already registered as " + userRequest.getRole()+ ". Please Login.");
 	                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
 	            else {
 	            	
 	            	//Email already registered as seller. Log in as seller or use another email to register as buyer.
 	            	 response.put("status", false);
-		                response.put("message", "Email already registered as " + user.getRole()+ " Log in as "+user.getRole()+ " or use another email to register as "+role+".");
+		                response.put("message", "Email already registered as " + user.getRole()+ " Log in as "+user.getRole()+ " or use another email to register as "+userRequest.getRole()+".");
 		                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
 	            // Add the new role to the existing user
