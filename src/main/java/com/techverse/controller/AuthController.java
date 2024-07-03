@@ -136,13 +136,18 @@ public class AuthController {
 
 	        Optional<User> userOpt = userRepository.findByEmail(loginRequest.getEmail());
 	        if (!userOpt.isPresent()) {
-	            throw new UserException("Your email is not registered please Signup first");
+	            throw new UserException("Your email is not registered as a "+loginRequest.getRole()+". please Signup first.");
 	        }
 	      
 	        
 	        User user = userOpt.get();
+	        if(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
 	        if(!user.getRole().equals(loginRequest.getRole())) {
-	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole());
+	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Registerd as a "+loginRequest.getRole()+" using different email");
+	        }
+	        }
+	        if(!user.getRole().equals(loginRequest.getRole())) {
+	        	 throw new UserException("Your email is not registered as a "+loginRequest.getRole()+", please login as a "+user.getRole()+" or Registerd as a "+loginRequest.getRole()+" using different email");
 	        }
 	        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
 	            throw new UserException("Invalid password");
