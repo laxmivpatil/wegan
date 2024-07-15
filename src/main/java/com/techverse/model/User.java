@@ -36,6 +36,8 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	private String signUrl="";
+	
 	private String name;
 	
 	@JsonIgnore
@@ -230,6 +232,22 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getSignUrl() {
+		return signUrl;
+	}
+
+	public void setSignUrl(String signUrl) {
+		this.signUrl = signUrl;
+	}
+
+	public SellerDetails getSellerDetails() {
+		return sellerDetails;
+	}
+
+	public void setSellerDetails(SellerDetails sellerDetails) {
+		this.sellerDetails = sellerDetails;
 	}
 	
 	

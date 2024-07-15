@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class SellerDetails {
@@ -17,7 +19,7 @@ public class SellerDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-	
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "user_id")
 	    private User user;

@@ -51,10 +51,14 @@ public class JwtProvider {
 	}
 
     public boolean validateToken(String authToken) {
+    	 
         try {
             Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
+            System.out.println("vali");
+            
             return true;
         } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+        	ex.printStackTrace();
             return false;
         }
     }
