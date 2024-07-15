@@ -87,6 +87,10 @@ public class User {
 	
 	private  LocalDateTime createdAt;
 	
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	private SellerDetails sellerDetails;
+	
 	public User() {
 		
 	}

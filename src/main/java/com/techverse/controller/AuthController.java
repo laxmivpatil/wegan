@@ -20,20 +20,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techverse.config.JwtProvider;
 import com.techverse.exception.UserException;
 import com.techverse.model.Cart;
+import com.techverse.model.OtpEntity;
 import com.techverse.model.Role;
+import com.techverse.model.SellerDetails;
 import com.techverse.model.User;
 import com.techverse.repository.RoleRepository;
+import com.techverse.repository.SellerDetailsRepository;
 import com.techverse.repository.UserRepository;
 import com.techverse.request.LoginRequest;
+import com.techverse.request.SellerRequest;
 import com.techverse.request.UserRequest;
 import com.techverse.response.AuthResponse;
 import com.techverse.service.CartService;
 import com.techverse.service.CustomUserServiceImplementation;
+import com.techverse.service.EmailService;
+import com.techverse.service.OtpEntityService;
 
 @RestController
 @RequestMapping("/auth")
@@ -55,15 +62,86 @@ public class AuthController {
 	private CartService cartService; 
 	
 	@Autowired
+	private EmailService emailService; 
+	
+	
+	@Autowired
+	private OtpEntityService otpEntityService; 
+	
+	
+	
+	
+	@Autowired
 	private RoleRepository  roleRepository;
 	
-	
+
+	@Autowired
+	private SellerDetailsRepository sellerDetailsRepository;
 	 @Autowired
 	    private AuthenticationManager authenticationManager;
 
-	
-	 
+	 @GetMapping("/findemail")
+	    public ResponseEntity<Map<String, Object>> getUser(@RequestParam String email,@RequestParam String role) throws UserException {
+		  Map<String, Object> response = new HashMap<>();
+		  Optional<User> existingUserOpt = userRepository.findByEmail(email);
 
+	        User user;
+		  if (existingUserOpt.isPresent()) {
+	            // User exists, check if they already have the buyer role
+	            user = existingUserOpt.get();
+	            
+	            
+	            //request for buyer and allready registered as a buyer
+	            if (user.getRole().equals(role)) {
+	                response.put("status", false);
+	                response.put("message", "Email already registered as " + role+ ". Please Login.");
+	                return new ResponseEntity<>(response, HttpStatus.OK);
+	            }
+	            else {
+	            	
+	            	//Email already registered as seller. Log in as seller or use another email to register as buyer.
+	            	 response.put("status", false);
+		                response.put("message", "Email already registered as " + user.getRole()+ " Log in as "+user.getRole()+ " or use another email to register as "+role+".");
+		                return new ResponseEntity<>(response, HttpStatus.OK);
+	            }
+	            // Add the new role to the existing user
+	             
+	        }
+		  String otp=emailService.generateOTP(6);
+		  boolean flag=emailService.sendEmail(email, "Wegan Verification", "Your Veerification Otp is "+otp);
+		  if(!flag) {
+		  response.put("status", false);
+	        response.put("message", "email send error");
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+		  }
+		  otpEntityService.save(email, otp);
+		  response.put("status", true);
+	        response.put("message", "new user and otp send on email ");
+	        response.put("otp", otp);
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	      
+	 }
+	 
+	 @PostMapping("/verifyEmail")
+	    public ResponseEntity<Map<String, Object>> verifyEmail(@RequestParam String email,@RequestParam String otp)   {
+		  Map<String, Object> response = new HashMap<>();
+		  
+		  String otpdb=otpEntityService.findOtpByemail(email);
+		  if(otpdb.equals(otp)) {
+			  otpEntityService.save(email, "####");
+			  
+		  response.put("status", true);
+	        response.put("message", "verified");
+	         
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+		  }
+		  response.put("status", false);
+	        response.put("message", "Invalid otp");
+	         
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+		   
+	      
+	 }
 	  @PostMapping("/signup")
 	    public ResponseEntity<Map<String, Object>> createUserHandler(@RequestBody UserRequest userRequest) throws UserException {
 	        Map<String, Object> response = new HashMap<>();
@@ -132,6 +210,116 @@ public class AuthController {
 	        return new ResponseEntity<>(response, HttpStatus.OK);
 	    }
 
+	  
+	  @PostMapping("/sellersignup")
+	    public ResponseEntity<Map<String, Object>> createSellerHandler(@RequestBody SellerRequest userRequest) throws UserException {
+	        Map<String, Object> response = new HashMap<>();
+	        String email = userRequest.getEmail();
+	        String password = userRequest.getPassword();
+	        String name = userRequest.getName();
+	        String mobile = userRequest.getMobileNo();
+	        String role=userRequest.getRole();
+	        
+	        
+	          String companyType=userRequest.getCompanyType();
+	    	
+	    	  String description=userRequest.getDescription();
+	    	
+	    	  String businessMobile=userRequest.getBusinessMobile();
+	    	
+	    	  String gstNo=userRequest.getGstNo();
+	    	
+	    	  String businessPanCard=userRequest.getBusinessPanCard();
+	    	
+	    	  String pickupAddress=userRequest.getPickupAddress();
+	    	
+	    	  String state =userRequest.getState();
+	    	
+	    	  String pincode=userRequest.getPincode();
+	    	
+	    	  String city=userRequest.getCity();
+	    	
+	        
+	        
+	        Optional<User> existingUserOpt = userRepository.findByEmail(email);
+
+	        User user;
+	        if (existingUserOpt.isPresent()) {
+	            // User exists, check if they already have the buyer role
+	            user = existingUserOpt.get();
+	            
+	            
+	            //request for buyer and allready registered as a buyer
+	            if (user.getRole().equals(role)) {
+	                response.put("status", false);
+	                response.put("message", "Email already registered as " + userRequest.getRole()+ ". Please Login.");
+	                return new ResponseEntity<>(response, HttpStatus.OK);
+	            }
+	            else {
+	            	
+	            	//Email already registered as seller. Log in as seller or use another email to register as buyer.
+	            	 response.put("status", false);
+		                response.put("message", "Email already registered as " + user.getRole()+ " Log in as "+user.getRole()+ " or use another email to register as "+userRequest.getRole()+".");
+		                return new ResponseEntity<>(response, HttpStatus.OK);
+	            }
+	            // Add the new role to the existing user
+	             
+	        } else {
+	            // New user
+	            user = new User();
+	            user.setEmail(email);
+	            user.setPassword(passwordEncoder.encode(password));
+	            user.setName(name);
+	            user.setGender("");
+	            user.setMobile(mobile);
+	            user.setCreatedAt(LocalDateTime.now());
+	            user.setRole(role);
+	            User savedUser = userRepository.save(user);
+	            SellerDetails s=new SellerDetails();
+	            s.setBusinessMobile(businessMobile);
+	            s.setBusinessPanCard(businessPanCard);
+	            s.setCity(city);
+	            s.setCompanyType(companyType);
+	            s.setDescription(description);
+	            s.setGstNo(gstNo);
+	            s.setPickupAddress(pickupAddress);
+	            s.setPincode(pincode);
+	            s.setState(state );
+	            
+	            s.setUser(savedUser);
+	             
+	            sellerDetailsRepository.save(s);
+            
+	            
+	            
+	           /* Role userRole = roleRepository.findByName(userRequest.getRole())
+	                    .orElseThrow(() -> new RuntimeException("User Role not set."));
+	            user.setRoles(Collections.singleton(userRole));
+	            */
+	        }
+
+	        
+ 
+
+	        Authentication authentication = authenticationManager.authenticate(
+	                new UsernamePasswordAuthenticationToken(
+	                        user.getEmail(),
+	                        userRequest.getPassword()
+	                )
+	        );
+
+	        String jwt = jwtProvider.generateToken(authentication);
+
+	        response.put("jwt", jwt);
+	        response.put("status", true);
+	        response.put("message", "Sign Up Success");
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	    }
+
+	  
+	  
+	  
+	  
 	  @PostMapping("/signin")
 	    public ResponseEntity<Map<String, Object>> loginUserHandler(@RequestBody LoginRequest loginRequest) throws UserException {
 	        Map<String, Object> response = new HashMap<>();
