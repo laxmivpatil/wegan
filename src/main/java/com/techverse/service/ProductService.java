@@ -12,7 +12,7 @@ import com.techverse.request.CreateProductRequest;
 
 public interface ProductService {
 
-	public Product createProduct(
+	public Product createProduct(String token,
             Long categoryId, String email, String title, String site,
             int quantity, String description, String productTags,
             String policy, String numberOfDays, Integer productPrice,

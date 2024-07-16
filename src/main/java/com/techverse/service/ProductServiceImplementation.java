@@ -19,6 +19,7 @@ import com.techverse.exception.ProductException;
 import com.techverse.exception.UserException;
 import com.techverse.model.Category;
 import com.techverse.model.Product;
+import com.techverse.model.User;
 import com.techverse.repository.CategoryRepository;
 import com.techverse.repository.ProductRepository;
 import com.techverse.request.CreateProductRequest;
@@ -37,12 +38,15 @@ public class ProductServiceImplementation implements ProductService{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	 public Product createProduct(
+	 public Product createProduct(String jwt,
 	            Long categoryId, String email, String title, String site,
 	            int quantity, String description, String productTags,
 	            String policy, String numberOfDays, Integer productPrice,
 	             MultipartFile image1, MultipartFile image2, MultipartFile image3, MultipartFile image4, MultipartFile image5, MultipartFile image6) throws UserException{
 		 	
+		 
+			User user =userService.findUserProfileByJwt(jwt);
+			 
 	        Product product = new Product();
 	        product.setCategory(categoryRepository.findById(categoryId).get());
 	        product.setEmail(email);
@@ -62,7 +66,8 @@ public class ProductServiceImplementation implements ProductService{
 	        product.setService_charges(serviceCharges);
 	        product.setSeller_price(sellerPrice);
 	        product.setCreatedAt(LocalDateTime.now());
-
+	         product.setUser(user);
+	         user.getProducts().add(product);
 	        // Save product and handle images
 	        Product savedProduct = productRepository.save(product);
 	        

@@ -22,6 +22,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -33,6 +35,11 @@ public class Product {
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
+    
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     
     private String email;
     
@@ -218,6 +225,16 @@ public class Product {
 
 	public String getImageUrl1() {
 		return imageUrl1;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

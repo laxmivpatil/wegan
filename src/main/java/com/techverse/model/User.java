@@ -79,6 +79,12 @@ public class User {
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Review> reviews=new ArrayList<>();
 	
+	  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<Product> products = new ArrayList<>();
+
+	  
+	
+	
 	@JsonIgnore
 	@ManyToMany
     @JoinTable(
@@ -153,7 +159,15 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	  // other fields
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 	public String getEmail() {
 		return email;
 	}

@@ -39,7 +39,7 @@ public class AdminProductController {
 	
 	 @PostMapping("/create")
 	    public ResponseEntity<?> createProduct(
-	    		//@RequestHeader("Authorization") String jwt,
+	    		@RequestHeader("Authorization") String jwt,
 	            @RequestPart("categoryId") String categoryId,
 	            @RequestPart("email") String email,
 	            @RequestPart("title") String title,
@@ -59,11 +59,11 @@ public class AdminProductController {
 
 		
 		 //User user =userService.findUserProfileByJwt(jwt);
-	        Product createdProduct = productService.createProduct(
+	        Product createdProduct = productService.createProduct(jwt,
 	        		 Long.parseLong(categoryId), email, title, site, Integer.parseInt( quantity), description,
 	                productTags, policy, numberOfDays,Integer.parseInt(productPrice) , image1,image2,image3,image4,image5,image6);
 
-	        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+	        return ResponseEntity.status(HttpStatus.OK).body(createdProduct);
 	    }
 	
 	@DeleteMapping("/{productId}/delete")

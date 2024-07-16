@@ -52,6 +52,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 	            .csrf().disable()
 	            .authorizeRequests()
 	            .antMatchers("/api/**").authenticated()
+	            .antMatchers("/admin/**").authenticated()
 	            .anyRequest().permitAll()
 	            .and()
 	            .addFilterBefore(jwtValidator, BasicAuthenticationFilter.class)
