@@ -27,25 +27,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class EmailService {
 	  private static final String DIGITS = "0123456789";
 	    private static final SecureRandom random = new SecureRandom();
-	 /*
-	  
-	 private String senderEmail="laxmipatil070295@gmail.com";
+	 
+	    private String senderEmail="laxmipatil070295@gmail.com";
+		
+
+	     private String senderPassword= "puokarvnqseapgtl";
 	
- 
-     private String senderPassword= "mfaxitwotgaxhkst";
+	     private String host= "smtp.gmail.com";
 	
-	 */
-	
-	
-	
-	
-	private String senderEmail="laxmi.patil@techverse.world";
+	/*private String senderEmail="laxmi.patil@techverse.world";
 	
 	 
     private String senderPassword= "9vYXuAf9ptj7";
+    
 	
      private String host= "smtp.zoho.in";
-	
+	*/
 	 
      int port=587;
      
