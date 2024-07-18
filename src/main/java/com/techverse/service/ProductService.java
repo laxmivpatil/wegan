@@ -8,14 +8,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.techverse.exception.ProductException;
 import com.techverse.exception.UserException;
 import com.techverse.model.Product;
+import com.techverse.model.User;
 import com.techverse.request.CreateProductRequest;
 
 public interface ProductService {
 
 	public Product createProduct(String token,
-            Long categoryId, String email, String title, String site,
+            Long categoryId,  String title, String site,
             int quantity, String description, String productTags,
-            String policy, String numberOfDays, Integer productPrice,
+            String policy, Integer productPrice,
              MultipartFile image1, MultipartFile image2, MultipartFile image3, MultipartFile image4, MultipartFile image5, MultipartFile image6)throws  UserException;  
 
 
@@ -58,6 +59,11 @@ public List<Product> getProductsBySortedByPriceDesc();
 	 
 	
 	public List<Product> findAllProduct() ;
+	
+	
+	
+	//seller
+	public List<Product> findProductByUser(User user);
 	
 	
 	

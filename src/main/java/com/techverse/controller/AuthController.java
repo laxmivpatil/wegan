@@ -142,7 +142,7 @@ public class AuthController {
 	            else {
 	            	
 	            	//Email already registered as seller. Log in as seller or use another email to register as buyer.
-	            	 response.put("status", false);
+	            	    response.put("status", false);
 		                response.put("message", "Email already registered as " + user.getRole()+ " Log in as "+user.getRole()+ " or use another email to register as "+role+".");
 		                return new ResponseEntity<>(response, HttpStatus.OK);
 	            }
@@ -437,7 +437,7 @@ public class AuthController {
 	                        loginRequest.getPassword()
 	                )
 	        );
-
+	        System.out.println(authentication.toString());
 	        String jwt = jwtProvider.generateToken(authentication);
 
 	        response.put("jwt", jwt);

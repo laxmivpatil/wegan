@@ -1,6 +1,8 @@
 package com.techverse.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,15 +43,15 @@ public class AdminProductController {
 	    public ResponseEntity<?> createProduct(
 	    		@RequestHeader("Authorization") String jwt,
 	            @RequestPart("categoryId") String categoryId,
-	            @RequestPart("email") String email,
-	            @RequestPart("title") String title,
-	            @RequestPart("site") String site,
+	         //   @RequestPart("email") String email,
+	            @RequestPart("productName") String title,
+	            @RequestPart("productType") String site,
 	            @RequestPart("quantity")String  quantity,
 	            @RequestPart("description") String description,
-	            @RequestPart("product_tags") String productTags,
+	          @RequestPart("productTags") String productTags,
 	            @RequestPart("policy") String policy,
-	            @RequestPart("no_of_days") String numberOfDays,
-	            @RequestPart("product_price") String productPrice,
+	           // @RequestPart("no_of_days") String numberOfDays,
+	            @RequestPart("productPrice") String productPrice,
 	            @RequestPart(value="image1",required=false) MultipartFile image1,
 	            @RequestPart(value="image2",required=false) MultipartFile image2,
 	            @RequestPart(value="image3",required=false) MultipartFile image3,
@@ -60,8 +62,8 @@ public class AdminProductController {
 		
 		 //User user =userService.findUserProfileByJwt(jwt);
 	        Product createdProduct = productService.createProduct(jwt,
-	        		 Long.parseLong(categoryId), email, title, site, Integer.parseInt( quantity), description,
-	                productTags, policy, numberOfDays,Integer.parseInt(productPrice) , image1,image2,image3,image4,image5,image6);
+	        		 Long.parseLong(categoryId),  title, site, Integer.parseInt( quantity), description,
+	                productTags, policy, Integer.parseInt(productPrice) , image1,image2,image3,image4,image5,image6);
 
 	        return ResponseEntity.status(HttpStatus.OK).body(createdProduct);
 	    }
@@ -85,6 +87,25 @@ public class AdminProductController {
 		return new ResponseEntity<List<Product>>(product,HttpStatus.OK);
 		
 	}
+	
+	
+	@GetMapping("/")
+    public ResponseEntity<?> findbyuser(
+    		@RequestHeader("Authorization") String jwt)throws UserException{
+		
+		Map<String,Object> response = new HashMap<>();
+	     
+    User user=userService.findUserProfileByJwt(jwt);
+    
+    List<Product> product=productService.findProductByUser(user);
+  	response.put("product", product);
+	response.put("status", true);
+    response.put("message", "product retrived Successfully");
+    return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+
+	
+}
+
 	@PutMapping("/{productId}/update")
 	public ResponseEntity<Product> updateProduct(@RequestBody Product req,@PathVariable Long productId) throws  ProductException{
 		

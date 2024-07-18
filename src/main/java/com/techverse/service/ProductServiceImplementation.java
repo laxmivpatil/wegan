@@ -39,9 +39,9 @@ public class ProductServiceImplementation implements ProductService{
 	private CategoryRepository categoryRepository;
 	
 	 public Product createProduct(String jwt,
-	            Long categoryId, String email, String title, String site,
+	            Long categoryId,   String title, String site,
 	            int quantity, String description, String productTags,
-	            String policy, String numberOfDays, Integer productPrice,
+	            String policy, Integer productPrice,
 	             MultipartFile image1, MultipartFile image2, MultipartFile image3, MultipartFile image4, MultipartFile image5, MultipartFile image6) throws UserException{
 		 	
 		 
@@ -49,14 +49,14 @@ public class ProductServiceImplementation implements ProductService{
 			 
 	        Product product = new Product();
 	        product.setCategory(categoryRepository.findById(categoryId).get());
-	        product.setEmail(email);
+	     //   product.setEmail(email);
 	        product.setTitle(title);
 	        product.setSite(site);
 	        product.setQuantity(quantity);
 	        product.setDescription(description);
 	        product.setProduct_tags(productTags);
 	        product.setPolicy(policy);
-	        product.setNo_of_days(numberOfDays);
+	     //   product.setNo_of_days(numberOfDays);
 	        product.setProduct_price(productPrice);
 	        System.out.println(productPrice);
 	        double serviceCharges=productPrice*2/100;
@@ -257,6 +257,15 @@ public class ProductServiceImplementation implements ProductService{
 		return null;
 	}
 
+	@Override
+	public List<Product> findProductByUser(User user) {
+		// TODO Auto-generated method stub
+		
+	
+		return productRepository.findByUser(user);
+	}
+
+	
 	 
 
 

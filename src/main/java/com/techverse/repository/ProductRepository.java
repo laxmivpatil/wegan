@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.techverse.model.Product;
+import com.techverse.model.User;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	/*
@@ -73,4 +74,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	  
 	  List<Product> findByTitleContainingIgnoreCase(String search);
 
+	  
+	  //seller
+
+	  List<Product> findByUser(User user);
+
+	  
 }

@@ -41,8 +41,7 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User user;
     
-    private String email;
-    
+     
     private String title;
     
     private String site;
@@ -55,8 +54,7 @@ public class Product {
     
     private String policy;
     
-    private String no_of_days;
-    
+     
     private Integer product_price;
     
     private double service_charges;
@@ -113,15 +111,7 @@ public class Product {
 	}
 
 
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	 
 
 	public String getTitle() {
 		return title;
@@ -183,17 +173,7 @@ public class Product {
 	}
 
 
-	public String getNo_of_days() {
-		return no_of_days;
-	}
-
-
-	public void setNo_of_days(String no_of_days) {
-		this.no_of_days = no_of_days;
-	}
-
-
-	public Integer getProduct_price() {
+	 	public Integer getProduct_price() {
 		return product_price;
 	}
 
@@ -323,37 +303,7 @@ public class Product {
 	}
 
 
-	public Product(Long id, Category category, String email, String title, String site, int quantity,
-			String description, String product_tags, String policy, String no_of_days, Integer product_price,
-			double service_charges, double seller_price, String imageUrl1, String imageUrl2, String imageUrl3,
-			String imageUrl4, String imageUrl5, String imageUrl6, List<Rating> ratings, List<Review> reviews,
-			LocalDateTime createdAt) {
-		super();
-		this.id = id;
-		this.category = category;
-		this.email = email;
-		this.title = title;
-		this.site = site;
-		this.quantity = quantity;
-		this.description = description;
-		this.product_tags = product_tags;
-		this.policy = policy;
-		this.no_of_days = no_of_days;
-		this.product_price = product_price;
-		this.service_charges = service_charges;
-		this.seller_price = seller_price;
-		this.imageUrl1 = imageUrl1;
-		this.imageUrl2 = imageUrl2;
-		this.imageUrl3 = imageUrl3;
-		this.imageUrl4 = imageUrl4;
-		this.imageUrl5 = imageUrl5;
-		this.imageUrl6 = imageUrl6;
-		this.ratings = ratings;
-		this.reviews = reviews;
-		this.createdAt = createdAt;
-	}
-
-
+	 
 	 
 
 	 
