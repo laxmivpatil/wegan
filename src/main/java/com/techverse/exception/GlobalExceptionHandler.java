@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
      public ResponseEntity<Object> handleIO(IOException ex) {
          // Create a custom error response
      	 System.out.println(ex.getMessage());
-         ErrorResponse errorResponse = new ErrorResponse(false, "file storage error");
+         ErrorResponse errorResponse = new ErrorResponse(false, ex.getMessage());
          return new ResponseEntity<>(errorResponse, HttpStatus.OK);
      }
      
