@@ -260,7 +260,7 @@ public class AuthController {
 	    	    @RequestPart String password,
 	    	    @RequestPart String mobileNo,
 	    	    @RequestPart String role,
-	    		
+	    	    @RequestPart String companyName,
 	    	    @RequestPart String companyType,
 	    		
 	    	    @RequestPart String description,
@@ -361,6 +361,7 @@ public class AuthController {
 	            s.setBusinessPanCard(businessPanCard);
 	            s.setCity(city);
 	            s.setCompanyType(companyType);
+	            s.setCompanyName(companyName);
 	            s.setDescription(description);
 	            s.setGstNo(gstNo);
 	            s.setPickupAddress(pickupAddress);

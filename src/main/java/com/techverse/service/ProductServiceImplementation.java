@@ -35,6 +35,7 @@ public class ProductServiceImplementation implements ProductService{
 	
 	@Autowired
 	private StorageService storageService;
+	
 	@Autowired
 	private CategoryRepository categoryRepository;
 	

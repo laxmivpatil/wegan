@@ -26,7 +26,7 @@ public class SellerDetails {
 	
 	//category
 	private String companyType;
-	
+	private String companyName;
 	private String description;
 	
 	private String businessMobile;
@@ -131,6 +131,14 @@ public class SellerDetails {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
  

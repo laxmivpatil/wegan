@@ -42,13 +42,18 @@ public class GlobalExceptionHandler {
 	        ErrorResponse errorResponse = new ErrorResponse(false, ex.getMessage());
 	        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
 	    }
-     @ExceptionHandler(UserException.class)
+    
+	   
+	 @ExceptionHandler(UserException.class)
     public ResponseEntity<Object> handleUserException(UserException ex) {
         // Create a custom error response
     	 System.out.println(ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(false, ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
+     
+     
+     
      @ExceptionHandler(IOException.class)
      public ResponseEntity<Object> handleIO(IOException ex) {
          // Create a custom error response
@@ -56,8 +61,6 @@ public class GlobalExceptionHandler {
          ErrorResponse errorResponse = new ErrorResponse(false, ex.getMessage());
          return new ResponseEntity<>(errorResponse, HttpStatus.OK);
      }
-     
-     
      
      
      @ExceptionHandler(UsernameNotFoundException.class)

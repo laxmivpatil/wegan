@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+ 
 
 @Entity
 @Table(name="orders")
@@ -40,8 +41,10 @@ public class Order {
 	
 	private LocalDateTime deliveryDate;
 	
-	@OneToOne
-	private Address shippingAddress;
+	 
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="shipping_id",nullable=false)
+	private ShippingAddress shippingAddress;
 	
 	@Embedded
 	private PaymentDetails paymentDetails=new PaymentDetails();
@@ -74,7 +77,7 @@ private double tax;
 	}
 
 	public Order(Long id, String orderId, User user, List<OrderItem> orderItems, LocalDateTime orderDate,
-			LocalDateTime deliveryDate, Address shippingAddress, PaymentDetails paymentDetails, double toatalPrice,
+			LocalDateTime deliveryDate, ShippingAddress shippingAddress, PaymentDetails paymentDetails, double toatalPrice,
 			Integer totalDiscountedPrice, Integer discounte, String orderStatus, int totalItem,
 			LocalDateTime createdAt) {
 		super();
@@ -142,11 +145,13 @@ private double tax;
 		this.deliveryDate = deliveryDate;
 	}
 
-	public Address getShippingAddress() {
+	
+
+	public ShippingAddress getShippingAddress() {
 		return shippingAddress;
 	}
 
-	public void setShippingAddress(Address shippingAddress) {
+	public void setShippingAddress(ShippingAddress shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.techverse.exception.ProductException;
 import com.techverse.exception.UserException;
 import com.techverse.model.Product;
+import com.techverse.model.ShippingAddress;
 import com.techverse.model.User;
 
 public interface UserService {
@@ -18,6 +19,8 @@ public interface UserService {
 	 public User deleteFavoriteProduct(Long userId, Long productId) throws UserException, ProductException;
 
 	public  List<Product> getFavoriteProducts(Long userId) throws UserException;
+	
+	 public ShippingAddress getDefaultShippingAddress(User user);
 	
 
 }

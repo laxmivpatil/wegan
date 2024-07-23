@@ -43,7 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class StorageService {
 
-	
+	/*
 	 @Value("${azure.storage.account-name}")
 	    private String storageAccountName;
 
@@ -52,7 +52,12 @@ public class StorageService {
 
 	    @Value("${azure.storage.container-name}")
 	    private String containerName;
+ */
+	 private String storageAccountName="satyaprofilestorage";
  
+	    private String container_string="DefaultEndpointsProtocol=https;AccountName=satyaprofilestorage;AccountKey=TRfxdipcJMaK5LMJPmv9z5Xmzj/34I5eKI/p/pTyrnOaqZKSlPQnPS4RA1b7n5tK5ml9BAcA7+B0+ASt4ObNkw==;EndpointSuffix=core.windows.net";
+ 
+	    private String containerName="wegan";
  
   private String uploadDir="F:\\MyProject\\SatyaAdminApp\\Images";
   public String uploadFileOnAzure1(MultipartFile file) {

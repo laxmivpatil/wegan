@@ -3,13 +3,14 @@ package com.techverse.service;
 import java.util.List;
 
 import com.techverse.exception.OrderException;
-import com.techverse.model.Address;
+ 
 import com.techverse.model.Order;
+import com.techverse.model.ShippingAddress;
 import com.techverse.model.User;
 
 public interface OrderService {
 	 
-	public Order createOrder(User user, Address address);
+	public Order createOrder(User user, ShippingAddress address);
 	
 	public Order findOrderById(Long orderId) throws OrderException;
 	

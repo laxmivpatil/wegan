@@ -10,8 +10,10 @@ import com.techverse.config.JwtProvider;
 import com.techverse.exception.ProductException;
 import com.techverse.exception.UserException;
 import com.techverse.model.Product;
+import com.techverse.model.ShippingAddress;
 import com.techverse.model.User;
 import com.techverse.repository.ProductRepository;
+import com.techverse.repository.ShippingAddressRepository;
 import com.techverse.repository.UserRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class UserServiceImplementation implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+    private ShippingAddressRepository shippingAddressRepository;
+
 	
 	
 	@Autowired
@@ -89,5 +94,10 @@ public class UserServiceImplementation implements UserService {
         return user.getFavoriteProducts();
     }
 
+    @Override
+    public ShippingAddress getDefaultShippingAddress(User user) {
+        return shippingAddressRepository.findByUserAndSetDefaultAddress(user, true);
+    }
+    
 
 }

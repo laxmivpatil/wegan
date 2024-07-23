@@ -36,7 +36,7 @@ public class JwtProvider {
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(jwtSecret, SignatureAlgorithm.HS512) // Using the key directly
+                .signWith(jwtSecret) // Using the key directly
 
                 .compact();
     }

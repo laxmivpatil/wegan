@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techverse.exception.OrderException;
-import com.techverse.model.Address;
+ 
 import com.techverse.model.Cart;
 import com.techverse.model.CartItem;
 import com.techverse.model.Order;
 import com.techverse.model.OrderItem;
+import com.techverse.model.ShippingAddress;
 import com.techverse.model.User;
-import com.techverse.repository.AddressRepository;
-import com.techverse.repository.CartRepository;
 import com.techverse.repository.OrderItemRepository;
 import com.techverse.repository.OrderRepository;
 import com.techverse.repository.UserRepository;
@@ -28,36 +27,29 @@ public class OrderServiceImplementation implements OrderService{
 	@Autowired
 	private OrderRepository orderRepository;
 	
-	@Autowired
-	private CartRepository cartRepository;
+	 
 	
 	@Autowired
 	private CartService cartService;
 	
-	@Autowired
-	private ProductService productService;
+	 
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private AddressRepository addressRepository;
+	 
 	
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
-	@Autowired
-	private OrderItemService orderItemSrvice;
+	 
 	
 	
 	
 
 	@Override
-	public Order createOrder(User user, Address shippAddress) {
+	public Order createOrder(User user, ShippingAddress address) {
 		 
-		shippAddress.setUser(user);
-		Address address=addressRepository.save(shippAddress);
-		user.getAddress().add(address);
+		 		 
 		userRepository.save(user);
 		
 		
@@ -119,7 +111,9 @@ public class OrderServiceImplementation implements OrderService{
 
 	@Override
 	public List<Order> usersOrderHistory(Long userId) {
-		List<Order> orders=orderRepository.getUsersOreders(userId);
+		//List<Order> orders=orderRepository.getUsersOreders(userId);
+		List<Order> orders=orderRepository.getUsersAllOreders(userId);
+		
 		return orders;
 	}
 

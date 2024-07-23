@@ -272,23 +272,39 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	
 	
 	@PostMapping("/")
-	public ResponseEntity<Order> createOrder(@RequestBody Address shippingAddress,@RequestHeader("Authorization") String jwt)throws UserException{
+	public  ResponseEntity<Map<String, Object>>  createOrder(@RequestHeader("Authorization") String jwt)throws UserException{
 		
 		User user =userService.findUserProfileByJwt(jwt);
+		 
+		ShippingAddress shippingAddress=userService.getDefaultShippingAddress(user);
+		
 		Order order=orderService.createOrder(user, shippingAddress);
 		
-		 return new ResponseEntity<Order>(order,HttpStatus.CREATED);
+		
+
+		Map<String,Object> response = new HashMap<>();
+        response.put("Order", order);
+         response.put("status", true);
+        response.put("message", "order created successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+		
+		 
 		
 		
 	}
 	@GetMapping("/user")
-	public ResponseEntity<List<Order>> userOrderHistory(@RequestHeader("Authorization") String jwt)throws UserException{
+	public ResponseEntity<Map<String, Object>> userOrderHistory(@RequestHeader("Authorization") String jwt)throws UserException{
 		
 		User user =userService.findUserProfileByJwt(jwt);
 		List<Order> order=orderService.usersOrderHistory(user.getId());
 		
-		 return new ResponseEntity<>(order,HttpStatus.OK);
+		Map<String,Object> response = new HashMap<>();
+        response.put("Order", order);
+         response.put("status", true);
+        response.put("message", "order get successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
 		
+		 
 		
 	}
 	
