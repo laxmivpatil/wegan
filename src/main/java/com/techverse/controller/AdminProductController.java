@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,8 +69,8 @@ public class AdminProductController {
 	        return ResponseEntity.status(HttpStatus.OK).body(createdProduct);
 	    }
 	
-	@DeleteMapping("/{productId}/delete")
-	public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) throws ProductException{
+	@DeleteMapping("/delete")
+	public ResponseEntity<ApiResponse> deleteProduct(@RequestParam Long productId) throws ProductException{
 		
 		 productService.deleteProduct(productId);
 		 ApiResponse res=new ApiResponse();
@@ -106,11 +107,15 @@ public class AdminProductController {
 	
 }
 
-	@PutMapping("/{productId}/update")
-	public ResponseEntity<Product> updateProduct(@RequestBody Product req,@PathVariable Long productId) throws  ProductException{
-		
+	@PutMapping("/update")
+	public ResponseEntity<?> updateProduct(@RequestBody Product req,@RequestParam Long productId) throws  ProductException{
+		Map<String,Object> response = new HashMap<>();
 		Product product=productService.updateProduct(productId, req);
-		return new ResponseEntity<Product>(product,HttpStatus.CREATED);
+		response.put("product", product);
+		response.put("status", true);
+	    response.put("message", "product updated Successfully");
+	    return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+		 
 		
 	}
 	 
