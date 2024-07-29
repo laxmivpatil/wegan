@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.razorpay.RazorpayException;
 import com.techverse.exception.OrderException;
  
 import com.techverse.model.Cart;
@@ -32,7 +34,8 @@ public class OrderServiceImplementation implements OrderService{
 	@Autowired
 	private CartService cartService;
 	
-	 
+	@Autowired
+	private OrderService1 orderService1;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -47,10 +50,10 @@ public class OrderServiceImplementation implements OrderService{
 	
 
 	@Override
-	public Order createOrder(User user, ShippingAddress address) {
+	public Order createOrder(User user, ShippingAddress address) throws RazorpayException{
 		 
 		 		 
-		userRepository.save(user);
+		 
 		
 		
 		Cart cart =cartService.findUserCart(user.getId());
@@ -72,7 +75,11 @@ public class OrderServiceImplementation implements OrderService{
 			orderItems.add(createdOrderItem);
 		}
 		
+		//String newId=orderService1.createOrder(cart.getTotalPrice(), "INR","123456",user);
+		
+		String newId="as";
 		Order createdOrder=new Order();
+		createdOrder.setOrderId(newId);
 		createdOrder.setUser(user);
 		createdOrder.setOrderItems(orderItems);
 		createdOrder.setToatalPrice(cart.getTotalPrice());
@@ -167,6 +174,22 @@ public class OrderServiceImplementation implements OrderService{
 	public List<Order> getAllOrders() {
 		 
 		return orderRepository.findAll();
+	}
+	
+	@Override
+	public List<Order> getConfirmedOrders() {
+		 
+		return orderRepository.findByOrderStatusOrderByCreatedAtAsc("CONFIRMED");
+	}
+	@Override
+	public List<Order> getPlacedOrders() {
+		 
+		return orderRepository.findByOrderStatusOrderByCreatedAtAsc("PLACED");
+	}
+	@Override
+	public List<Order> getPendingOrders() {
+		 
+		return orderRepository.findByOrderStatusOrderByCreatedAtAsc("PENDING");
 	}
 
 	@Override

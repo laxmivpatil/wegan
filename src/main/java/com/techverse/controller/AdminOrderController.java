@@ -1,6 +1,8 @@
 package com.techverse.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,12 +27,54 @@ public class AdminOrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	/*
+	 
 	@GetMapping("/")
-	public ResponseEntity<List<Order>> getAllOrdersHandler(){
+	public ResponseEntity<Map<String, Object>> getAllOrdersHandler(){
 		
 		List<Order> orders =orderService.getAllOrders();
-		return new ResponseEntity<List<Order>>(orders,HttpStatus.ACCEPTED);
+		Map<String,Object> response = new HashMap<>();
+        response.put("Order", orders);
+         response.put("status", true);
+        response.put("message", "order get successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+		
+	 
+		
+	}
+	@GetMapping("/pending")
+	public ResponseEntity<Map<String, Object>>getPendingOrdersHandler(){
+		
+		List<Order> orders =orderService.getPendingOrders();
+		Map<String,Object> response = new HashMap<>();
+        response.put("Order", orders);
+         response.put("status", true);
+        response.put("message", "order get successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+		
+		
+	}
+	@GetMapping("/confirmed")
+	public ResponseEntity<Map<String, Object>> getConfirmedOrdersHandler(){
+		
+		List<Order> orders =orderService.getConfirmedOrders();
+		Map<String,Object> response = new HashMap<>();
+        response.put("Order", orders);
+         response.put("status", true);
+        response.put("message", "order get successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+		
+		
+	}
+	@GetMapping("/placed")
+	public ResponseEntity<Map<String, Object>> getPlacedOrdersHandler(){
+		
+		List<Order> orders =orderService.getPlacedOrders();
+		Map<String,Object> response = new HashMap<>();
+        response.put("Order", orders);
+         response.put("status", true);
+        response.put("message", "order get successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+		
 		
 	}
 	@PutMapping("/{orderId}/confirmed")
@@ -77,6 +121,6 @@ public class AdminOrderController {
 		return new ResponseEntity<>(res,HttpStatus.OK);
 		
 	}
-	*/
+	 
 
 }

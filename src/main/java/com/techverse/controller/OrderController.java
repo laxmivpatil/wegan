@@ -272,7 +272,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	
 	
 	@PostMapping("/")
-	public  ResponseEntity<Map<String, Object>>  createOrder(@RequestHeader("Authorization") String jwt)throws UserException{
+	public  ResponseEntity<Map<String, Object>>  createOrder(@RequestHeader("Authorization") String jwt)throws UserException,RazorpayException{
 		
 		User user =userService.findUserProfileByJwt(jwt);
 		 
