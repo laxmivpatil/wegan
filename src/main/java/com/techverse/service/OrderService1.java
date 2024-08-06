@@ -8,6 +8,10 @@ import com.techverse.response.PaymentLinkResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +23,9 @@ public class OrderService1 {
  
     private String keySecret="q66erZ3vUMDufjJyZi3iA7Qy";
 
-    public String createOrder(double amount, String currency, String receipt, User user) throws RazorpayException {
+    public Map<String, String> createOrder(double amount, String currency, String receipt, User user) throws RazorpayException {
+    	 Map<String, String> result=new HashMap<>();
+    	
         RazorpayClient razorpayClient = new RazorpayClient(keyId, keySecret);
         
         // Create the payment link request
@@ -64,6 +70,8 @@ public class OrderService1 {
         Order order = razorpayClient.orders.create(orderRequest);
 
         System.out.println(paymentLinkUrl);
-        return order.get("id").toString();
+        result.put("paymentLink", paymentLinkUrl);
+        result.put("orderId", order.get("id").toString());
+        return result;
     }
 }

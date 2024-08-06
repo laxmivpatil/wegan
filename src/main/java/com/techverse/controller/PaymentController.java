@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.razorpay.Order;
 import com.razorpay.Payment;
 import com.razorpay.PaymentLink;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import com.techverse.config.OrderRequest;
 import com.techverse.exception.OrderException;
-import com.techverse.model.Order;
+ 
 import com.techverse.repository.OrderRepository;
 import com.techverse.response.ApiResponse;
 import com.techverse.response.PaymentLinkResponse;
@@ -37,6 +39,7 @@ public class PaymentController {
 	
 	
 	
+	/* 
 	 @Autowired
 	    private RazorpayService razorpayService;
 
@@ -51,6 +54,65 @@ public class PaymentController {
 	        }
 	    }
 	
+	    */
+	    
+	    
+	    
+	    @Autowired
+	    private RazorpayClient razorpayClient;
+
+	    @PostMapping("/createtestorder")
+	 
+	    public ResponseEntity<String> createOrder(@RequestBody OrderRequest orderRequest) {
+	    	  try {
+	              // Create order
+	              JSONObject orderRequestJson = new JSONObject();
+	              orderRequestJson.put("amount", orderRequest.getAmount());
+	              orderRequestJson.put("currency", orderRequest.getCurrency());
+	              orderRequestJson.put("receipt", orderRequest.getReceipt());
+
+	              JSONObject notes = new JSONObject();
+	              notes.put("notes_key_1", orderRequest.getNotes());
+	              orderRequestJson.put("notes", notes);
+
+	              Order order = razorpayClient.orders.create(orderRequestJson);
+	              String orderId = order.get("id").toString();
+	              System.out.println("Created Order ID: " + orderId);
+
+	              // Create payment link
+	              JSONObject paymentLinkRequestJson = new JSONObject();
+	              paymentLinkRequestJson.put("amount", orderRequest.getAmount());
+	              paymentLinkRequestJson.put("currency", orderRequest.getCurrency());
+	              paymentLinkRequestJson.put("description", "Payment for order: " + orderRequest.getReceipt());
+	              paymentLinkRequestJson.put("reference_id", orderId);
+	              paymentLinkRequestJson.put("notify", "false"); // Optional: Disable email notifications if needed
+	             // paymentLinkRequestJson.put("order_id", orderId); // Directly associate the order ID
+
+	              JSONObject customer = new JSONObject();
+	              customer.put("name", "Customer Name"); // Update as necessary
+	              customer.put("email", "customer@example.com"); // Update as necessary
+	              paymentLinkRequestJson.put("customer", customer);
+
+	              PaymentLink paymentLink1 = razorpayClient.paymentLink.create(paymentLinkRequestJson);
+	             
+	              String paymentLinkUrl = paymentLink1.get("short_url");
+	              System.out.println("Payment Link URL: " + paymentLinkUrl);
+
+	              // Return payment link
+	              return ResponseEntity.ok(paymentLinkUrl);
+
+	          } catch (Exception e) {
+	              e.printStackTrace();
+	              return ResponseEntity.status(500).body("Error creating order or payment link: " + e.getMessage());
+	          }
+	      
+	    }
+	    
+	    
+	    
+	    
+	    
+	    
 	/*
 	@Autowired
 	private OrderService orderService;

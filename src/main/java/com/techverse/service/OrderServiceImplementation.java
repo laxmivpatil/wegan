@@ -3,6 +3,7 @@ package com.techverse.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -75,11 +76,11 @@ public class OrderServiceImplementation implements OrderService{
 			orderItems.add(createdOrderItem);
 		}
 		
-		//String newId=orderService1.createOrder(cart.getTotalPrice(), "INR","123456",user);
+		 Map<String, String> result=orderService1.createOrder(cart.getTotalPrice(), "INR","123456",user);
 		
-		String newId="as";
+	//	String newId="as";
 		Order createdOrder=new Order();
-		createdOrder.setOrderId(newId);
+		createdOrder.setOrderId(result.get("orderId"));
 		createdOrder.setUser(user);
 		createdOrder.setOrderItems(orderItems);
 		createdOrder.setToatalPrice(cart.getTotalPrice());
@@ -93,6 +94,7 @@ public class OrderServiceImplementation implements OrderService{
 		createdOrder.setOrderDate(LocalDateTime.now());
 		createdOrder.setOrderStatus("PENDING");
 		createdOrder.getPaymentDetails().setStatus("PENDING");
+		createdOrder.getPaymentDetails().setPaymentMethod(result.get("paymentLink"));
 		createdOrder.setCreatedAt(LocalDateTime.now());
 		
 		Order savedOrder=orderRepository.save(createdOrder);
