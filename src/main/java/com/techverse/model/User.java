@@ -79,6 +79,7 @@ public class User {
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Review> reviews=new ArrayList<>();
 	
+	@JsonIgnore
 	  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	    private List<Product> products = new ArrayList<>();
 

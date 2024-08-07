@@ -76,7 +76,7 @@ public class OrderServiceImplementation implements OrderService{
 			orderItems.add(createdOrderItem);
 		}
 		
-		 Map<String, String> result=orderService1.createOrder(cart.getTotalPrice(), "INR","123456",user);
+		 Map<String, String> result=orderService1.createOrder(cart.getTotalpricewithcharges(), "INR","123456",user);
 		
 	//	String newId="as";
 		Order createdOrder=new Order();

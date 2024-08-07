@@ -29,7 +29,7 @@ public class OrderService1 {
         RazorpayClient razorpayClient = new RazorpayClient(keyId, keySecret);
         
         // Create the payment link request
-        JSONObject paymentLinkRequest = new JSONObject();
+    /*    JSONObject paymentLinkRequest = new JSONObject();
         paymentLinkRequest.put("amount", amount * 100);
         paymentLinkRequest.put("currency", "INR");
 
@@ -59,7 +59,7 @@ public class OrderService1 {
         PaymentLinkResponse res = new PaymentLinkResponse();
         res.setPayment_link_id(paymentLinkId);
         res.setPayment_link_url(paymentLinkUrl);
-
+*/
         // Create the order request
         JSONObject orderRequest = new JSONObject();
         orderRequest.put("amount", amount * 100); // Razorpay expects amount in paisa, so multiply by 100 for rupees
@@ -68,7 +68,7 @@ public class OrderService1 {
 
         // Create the order
         Order order = razorpayClient.orders.create(orderRequest);
-
+String paymentLinkUrl="abc";
         System.out.println(paymentLinkUrl);
         result.put("paymentLink", paymentLinkUrl);
         result.put("orderId", order.get("id").toString());
