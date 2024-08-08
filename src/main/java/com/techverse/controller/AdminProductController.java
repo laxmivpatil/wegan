@@ -45,20 +45,20 @@ public class AdminProductController {
 	    		@RequestHeader("Authorization") String jwt,
 	            @RequestPart("categoryId") String categoryId,
 	         //   @RequestPart("email") String email,
-	            @RequestPart("productName") String title,
-	            @RequestPart("productType") String site,
+	            @RequestPart("title") String title,
+	            @RequestPart("site") String site,
 	            @RequestPart("quantity")String  quantity,
 	            @RequestPart("description") String description,
-	          @RequestPart("productTags") String productTags,
+	          @RequestPart("product_tags") String productTags,
 	            @RequestPart("policy") String policy,
 	           // @RequestPart("no_of_days") String numberOfDays,
-	            @RequestPart("productPrice") String productPrice,
-	            @RequestPart(value="image1",required=false) MultipartFile image1,
-	            @RequestPart(value="image2",required=false) MultipartFile image2,
-	            @RequestPart(value="image3",required=false) MultipartFile image3,
-	            @RequestPart(value="image4",required=false) MultipartFile image4,
-	            @RequestPart(value="image5",required=false) MultipartFile image5,
-	            @RequestPart(value="image6",required=false) MultipartFile image6)throws UserException {
+	            @RequestPart("seller_price") String productPrice,
+	            @RequestPart(value="imageUrl1",required=false) MultipartFile image1,
+	            @RequestPart(value="imageUrl2",required=false) MultipartFile image2,
+	            @RequestPart(value="imageUrl3",required=false) MultipartFile image3,
+	            @RequestPart(value="imageUrl4",required=false) MultipartFile image4,
+	            @RequestPart(value="imageUrl5",required=false) MultipartFile image5,
+	            @RequestPart(value="imageUrl6",required=false) MultipartFile image6)throws UserException {
 
 		
 		 //User user =userService.findUserProfileByJwt(jwt);
