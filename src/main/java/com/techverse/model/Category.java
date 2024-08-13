@@ -25,6 +25,11 @@ public class Category {
 	    private String blacklogoUrl;
 	    private String whitelogoUrl;
 	    private String imageUrl;
+	    private Long sgst;
+	    private Long igst;
+	    
+	    
+	    
 		public Long getId() {
 			return id;
 		}
@@ -55,6 +60,18 @@ public class Category {
 		}
 		public void setWhitelogoUrl(String whitelogoUrl) {
 			this.whitelogoUrl = whitelogoUrl;
+		}
+		public Long getSgst() {
+			return sgst;
+		}
+		public void setSgst(Long sgst) {
+			this.sgst = sgst;
+		}
+		public Long getIgst() {
+			return igst;
+		}
+		public void setIgst(Long igst) {
+			this.igst = igst;
 		}
 	
 	

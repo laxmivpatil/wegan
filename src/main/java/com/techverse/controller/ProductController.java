@@ -25,7 +25,7 @@ public class ProductController {
     private ProductService productService;
 
 	
-	
+ 
 	@GetMapping("/category/")
     public Map<String, Object>  getProductsByCategoryId(@RequestParam Long categoryId) {
 		Map<String,Object> response = new HashMap<>();

@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.techverse.model.Category;
+import com.techverse.model.Product;
 import com.techverse.service.CategoryService;
 import com.techverse.service.StorageService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categories")
@@ -51,6 +53,23 @@ public class CategoryController {
          return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK); 
     }
 
+    
+    @GetMapping("/details/{categoryId}")
+    public Map<String, Object>  getDetailsByCategoryId(@PathVariable Long categoryId) {
+		Map<String,Object> response = new HashMap<>();
+		Optional<Category> category=categoryService.findCategoryById(categoryId);
+		if(category.isPresent()) {
+    	response.put("category", category.get());
+		response.put("status", true);
+        response.put("message", "category details retrived Successfully");
+        return response;
+		}
+		response.put("status", false);
+        response.put("message", "category Id invalid");
+		
+        return response;
+    }
+    
     @GetMapping
     public ResponseEntity<Map<String, Object>>  getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
@@ -62,4 +81,6 @@ public class CategoryController {
          return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
          
     }
+    
+    
 }

@@ -7,6 +7,7 @@ import com.techverse.model.Category;
 import com.techverse.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -21,4 +22,8 @@ public class CategoryService {
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
+    public Optional<Category> findCategoryById(Long categoryId) {
+    	return categoryRepository.findById(categoryId);
+    }
+    
 }

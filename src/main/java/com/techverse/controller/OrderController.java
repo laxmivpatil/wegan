@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.razorpay.Payment;
 import com.razorpay.RazorpayException;
+import com.razorpay.Transfer;
 import com.techverse.exception.OrderException;
 import com.techverse.exception.UserException;
 import com.techverse.model.Address;
@@ -32,6 +34,7 @@ import com.techverse.repository.ShippingAddressRepository;
 import com.techverse.repository.UserRepository;
 import com.techverse.response.ApiResponse;
 import com.techverse.service.OrderService;
+import com.techverse.service.RazorpayService;
 import com.techverse.service.UserService;
 
 @RestController
@@ -45,6 +48,10 @@ public class OrderController {
 	private UserService userService;
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	private RazorpayService razorpayService;
+	
 	
 	@Autowired
 	private ShippingAddressRepository shippingAddressRepository;
@@ -292,8 +299,57 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 		
 		
 	}
+	
+	
+	@GetMapping("/verifypayment/{Id}")
+	public  ResponseEntity<Map<String, Object>>  verifyPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId)throws UserException,RazorpayException{
+		
+		 
+		
+		Payment payment= razorpayService.verifyPayment(paymentId);
+
+		Map<String,Object> response = new HashMap<>();
+        response.put("Payment",payment.get("status"));
+         response.put("status", true);
+        response.put("message", "payment get successfully");
+        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+		
+        
+
+		
+		
+	}
+	@PostMapping("/verify/{Id}")
+    public ResponseEntity<String> verifyAndTransferPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId) throws Exception {
+        // Verify payment
+        Payment payment = razorpayService.verifyPayment(paymentId);
+        if (payment == null || !payment.get("status").equals("captured")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Payment verification failed");
+        }
+
+        
+     // String contactId=razorpayService.createContact();
+        
+        String contactId="cont_OiOOevhEYe9iq7";
+       //String fundAccountId =razorpayService.createFundAccount(contactId);
+       String fundAccountId=  "fa_OiPQsXwviMy0gv";
+       String payoutId = razorpayService.createPayout(fundAccountId);
+        return ResponseEntity.ok("Payment transferred successfully"+payoutId);
+    }
+	
+	 @PostMapping("/refund/{paymentId}")
+	    public String refundPayment(@PathVariable String paymentId, @RequestParam int amount) {
+	        try {
+	            return razorpayService.refundPayment(paymentId, amount);
+	        } catch (Exception e) {
+	            throw new RuntimeException("Failed to process refund", e);
+	        }
+	    }
+	
+	
+	
 	@GetMapping("/user")
-	public ResponseEntity<Map<String, Object>> userOrderHistory(@RequestHeader("Authorization") String jwt)throws UserException{
+	public ResponseEntity<Map<String, Object>> userOrderHistory(@RequestHeader("Authorization") String jwt,@PathVariable("Id") Long orderId)throws UserException{
 		
 		User user =userService.findUserProfileByJwt(jwt);
 		List<Order> order=orderService.usersOrderHistory(user.getId());
@@ -339,3 +395,10 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	
 
 }
+
+
+//for perfume
+//IGst 18 
+//sgst 9
+
+//
