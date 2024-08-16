@@ -38,7 +38,7 @@ public class ProductServiceImplementation implements ProductService{
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+	 @Override
 	 public Product createProduct(String jwt,
 	            Long categoryId,   String title, String site,
 	            int quantity, String description, String productTags,
@@ -114,6 +114,83 @@ public class ProductServiceImplementation implements ProductService{
 	       return productRepository.save(savedProduct);
 	         
 	    }
+	 @Override
+	 public Product createProduct1(String jwt, long categoryId, String title, String site, int quantity,
+             String description, String productTags, String policy, int productPrice,
+             MultipartFile image1, MultipartFile image2, MultipartFile image3,
+             MultipartFile image4, MultipartFile image5, MultipartFile image6,
+             long sgst, long igst, double weight, Integer base_price, long discount_per,
+             boolean discount, String discount_type, double discount_price,
+             double igst_price, double sgst_price, double final_price) throws UserException {
+
+
+	    User user = userService.findUserProfileByJwt(jwt);
+
+	    Product product = new Product();
+	    product.setSgst(sgst);
+	    product.setIgst(igst);
+	    product.setWeight(weight);
+	    product.setBase_price(base_price);
+	    product.setDiscount(discount);
+	    if(discount) {
+	     product.setDiscount_per(discount_per);
+		  product.setDiscount_type(discount_type);
+	    product.setDiscount_price(discount_price);
+	    }
+	    else
+	    {
+	    	product.setDiscount_per(Long.parseLong("0"));
+			  product.setDiscount_type("");
+		    product.setDiscount_price(Double.parseDouble("0"));
+	    }
+	    product.setIgst_price(igst_price);
+	    product.setSgst_price(sgst_price);
+	    product.setFinal_price(final_price);
+	    
+	    
+	    
+	    product.setCategory(categoryRepository.findById(categoryId).orElseThrow(() -> new UserException("Category not found")));
+	    product.setTitle(title);
+	    product.setSite(site);
+	    product.setQuantity(quantity);
+	    product.setDescription(description);
+	    product.setProduct_tags(productTags);
+	    product.setPolicy(policy);
+	    product.setProduct_price(productPrice);
+
+	    double serviceCharges = productPrice * 2 / 100;
+	    double sellerPrice = productPrice - serviceCharges;
+	    product.setService_charges(serviceCharges);
+	    product.setSeller_price(sellerPrice);
+	    product.setCreatedAt(LocalDateTime.now());
+	    product.setUser(user);
+	   
+
+	    // Save product to assign ID
+	    Product savedProduct = productRepository.save(product);
+
+	    // Handle image uploads
+	    if (image1 != null && !image1.isEmpty()) {
+	        savedProduct.setImageUrl1(storageService.uploadFileOnAzure(image1));
+	    }
+	    if (image2 != null && !image2.isEmpty()) {
+	        savedProduct.setImageUrl2(storageService.uploadFileOnAzure(image2));
+	    }
+	    if (image3 != null && !image3.isEmpty()) {
+	        savedProduct.setImageUrl3(storageService.uploadFileOnAzure(image3));
+	    }
+	    if (image4 != null && !image4.isEmpty()) {
+	        savedProduct.setImageUrl4(storageService.uploadFileOnAzure(image4));
+	    }
+	    if (image5 != null && !image5.isEmpty()) {
+	        savedProduct.setImageUrl5(storageService.uploadFileOnAzure(image5));
+	    }
+	    if (image6 != null && !image6.isEmpty()) {
+	        savedProduct.setImageUrl6(storageService.uploadFileOnAzure(image6));
+	    }
+
+	    return productRepository.save(savedProduct);
+	}
 
 	 @Override
 		public List<Product> getProductsByCategoryId(Long categoryId) {

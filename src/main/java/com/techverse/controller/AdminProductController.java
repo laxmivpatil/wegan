@@ -40,34 +40,97 @@ public class AdminProductController {
 	@Autowired
 	private UserService userService;
 	
-	 @PostMapping("/create")
-	    public ResponseEntity<?> createProduct(
-	    		@RequestHeader("Authorization") String jwt,
-	            @RequestPart("categoryId") String categoryId,
-	         //   @RequestPart("email") String email,
-	            @RequestPart("title") String title,
-	            @RequestPart("site") String site,
-	            @RequestPart("quantity")String  quantity,
-	            @RequestPart("description") String description,
-	          @RequestPart("product_tags") String productTags,
-	            @RequestPart("policy") String policy,
-	           // @RequestPart("no_of_days") String numberOfDays,
-	            @RequestPart("seller_price") String productPrice,
-	            @RequestPart(value="imageUrl1",required=false) MultipartFile image1,
-	            @RequestPart(value="imageUrl2",required=false) MultipartFile image2,
-	            @RequestPart(value="imageUrl3",required=false) MultipartFile image3,
-	            @RequestPart(value="imageUrl4",required=false) MultipartFile image4,
-	            @RequestPart(value="imageUrl5",required=false) MultipartFile image5,
-	            @RequestPart(value="imageUrl6",required=false) MultipartFile image6)throws UserException {
+	@PostMapping("/create")
+	public ResponseEntity<?> createProduct(
+	        @RequestHeader("Authorization") String jwt,
+	        @RequestPart("categoryId") String categoryId,
+	        @RequestPart("title") String title,
+	        @RequestPart("site") String site,
+	        @RequestPart("quantity") String quantity,
+	        @RequestPart("description") String description,
+	        @RequestPart("product_tags") String productTags,
+	        @RequestPart("policy") String policy,
+	        @RequestPart("sgst") String sgst,                // long
+	        @RequestPart("igst") String igst,                // long
+	        @RequestPart("weight") String weight,            // double
+	        @RequestPart("base_price") String basePrice,     // Integer
+	        @RequestPart(value="discount_per", required = false) String discountPer, // int
+	        @RequestPart("discount") String discount,        // boolean
+	        @RequestPart(value="discount_type", required = false) String discountType,
+	        @RequestPart(value="discount_price", required = false) String discountPrice,   // double
+	        @RequestPart("igst_price") String igstPrice,           // double
+	        @RequestPart("sgst_price") String sgstPrice,           // double
+	        @RequestPart("final_price") String finalPrice,         // double
+	        @RequestPart(value = "imageUrl1", required = false) MultipartFile image1,
+	        @RequestPart(value = "imageUrl2", required = false) MultipartFile image2,
+	        @RequestPart(value = "imageUrl3", required = false) MultipartFile image3,
+	        @RequestPart(value = "imageUrl4", required = false) MultipartFile image4,
+	        @RequestPart(value = "imageUrl5", required = false) MultipartFile image5,
+	        @RequestPart(value = "imageUrl6", required = false) MultipartFile image6
+	) throws UserException {
 
 		
-		 //User user =userService.findUserProfileByJwt(jwt);
-	        Product createdProduct = productService.createProduct(jwt,
-	        		 Long.parseLong(categoryId),  title, site, Integer.parseInt( quantity), description,
-	                productTags, policy, Integer.parseInt(productPrice) , image1,image2,image3,image4,image5,image6);
+		
+		
+		  System.out.println("Authorization JWT: " + jwt);
+		    System.out.println("Category ID: " + categoryId);
+		    System.out.println("Title: " + title);
+		    System.out.println("Site: " + site);
+		    System.out.println("Quantity: " + quantity);
+		    System.out.println("Description: " + description);
+		    System.out.println("Product Tags: " + productTags);
+		    System.out.println("Policy: " + policy);
+		    System.out.println("SGST: " + sgst);
+		    System.out.println("IGST: " + igst);
+		    System.out.println("Weight: " + weight);
+		    System.out.println("Base Price: " + basePrice);
+		    System.out.println("Discount Per: " + discountPer);
+		    System.out.println("Discount: " + discount);
+		    System.out.println("Discount Type: " + discountType);
+		    System.out.println("Discount Price: " + discountPrice);
+		    System.out.println("IGST Price: " + igstPrice);
+		    System.out.println("SGST Price: " + sgstPrice);
+		    System.out.println("Final Price: " + finalPrice);
+		    System.out.println("Image1: " + (image1 != null ? image1.getOriginalFilename() : "No image"));
+		    System.out.println("Image2: " + (image2 != null ? image2.getOriginalFilename() : "No image"));
+		    System.out.println("Image3: " + (image3 != null ? image3.getOriginalFilename() : "No image"));
+		    System.out.println("Image4: " + (image4 != null ? image4.getOriginalFilename() : "No image"));
+		    System.out.println("Image5: " + (image5 != null ? image5.getOriginalFilename() : "No image"));
+		    System.out.println("Image6: " + (image6 != null ? image6.getOriginalFilename() : "No image"));
+		   // Calling the service method to create the product
+	 Product createdProduct = productService.createProduct1(
+	            jwt,
+	            Long.parseLong(categoryId),
+	            title,
+	            site,
+	            Integer.parseInt(quantity),
+	            description,
+	            productTags,
+	            policy,
+	            Integer.parseInt("0"), // Placeholder for productPrice, needs to be replaced with actual value
+	            image1,
+	            image2,
+	            image3,
+	            image4,
+	            image5,
+	            image6,
+	            Long.parseLong(sgst),
+	            Long.parseLong(igst),
+	            Double.parseDouble(weight),
+	            Integer.parseInt(basePrice),
+	            Long.parseLong(discountPer),
+	            Boolean.parseBoolean(discount),
+	            discountType,
+	            Double.parseDouble(discountPrice),
+	            Double.parseDouble(igstPrice),
+	            Double.parseDouble(sgstPrice),
+	            Double.parseDouble(finalPrice)
+	    );
+ 
+	    // Returning the created product with an OK status
+	    return ResponseEntity.status(HttpStatus.OK).body(createdProduct);
+	}
 
-	        return ResponseEntity.status(HttpStatus.OK).body(createdProduct);
-	    }
 	
 	@DeleteMapping("/delete")
 	public ResponseEntity<ApiResponse> deleteProduct(@RequestParam Long productId) throws ProductException{

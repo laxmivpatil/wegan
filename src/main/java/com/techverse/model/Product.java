@@ -72,6 +72,30 @@ public class Product {
     private String imageUrl5;
     
     private String imageUrl6;
+    
+    
+    private Long sgst;
+    
+    private Long igst;
+    
+    private double weight;
+    
+    private Integer base_price;
+    
+    private Long discount_per;
+    
+    private boolean discount;
+    
+    private String discount_type;
+    
+    private double discount_price;
+    
+    private double igst_price;
+    
+    private double sgst_price;
+    
+    private double final_price;
+    
    
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -300,6 +324,118 @@ public class Product {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+
+	public Long getSgst() {
+		return sgst;
+	}
+
+
+	public void setSgst(Long sgst) {
+		this.sgst = sgst;
+	}
+
+
+	public Long getIgst() {
+		return igst;
+	}
+
+
+	public void setIgst(Long igst) {
+		this.igst = igst;
+	}
+
+
+	public double getWeight() {
+		return weight;
+	}
+
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+
+	public Integer getBase_price() {
+		return base_price;
+	}
+
+
+	public void setBase_price(Integer base_price) {
+		this.base_price = base_price;
+	}
+
+
+	 
+
+	public Long getDiscount_per() {
+		return discount_per;
+	}
+
+
+	public void setDiscount_per(Long discount_per) {
+		this.discount_per = discount_per;
+	}
+
+
+	public boolean isDiscount() {
+		return discount;
+	}
+
+
+	public void setDiscount(boolean discount) {
+		this.discount = discount;
+	}
+
+
+	public String getDiscount_type() {
+		return discount_type;
+	}
+
+
+	public void setDiscount_type(String discount_type) {
+		this.discount_type = discount_type;
+	}
+
+
+	public double getDiscount_price() {
+		return discount_price;
+	}
+
+
+	public void setDiscount_price(double discount_price) {
+		this.discount_price = discount_price;
+	}
+
+
+	public double getIgst_price() {
+		return igst_price;
+	}
+
+
+	public void setIgst_price(double igst_price) {
+		this.igst_price = igst_price;
+	}
+
+
+	public double getSgst_price() {
+		return sgst_price;
+	}
+
+
+	public void setSgst_price(double sgst_price) {
+		this.sgst_price = sgst_price;
+	}
+
+
+	public double getFinal_price() {
+		return final_price;
+	}
+
+
+	public void setFinal_price(double final_price) {
+		this.final_price = final_price;
 	}
 
 

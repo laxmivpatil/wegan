@@ -19,7 +19,13 @@ public interface ProductService {
             String policy, Integer productPrice,
              MultipartFile image1, MultipartFile image2, MultipartFile image3, MultipartFile image4, MultipartFile image5, MultipartFile image6)throws  UserException;  
 
-
+	 public Product createProduct1(String jwt, long categoryId, String title, String site, int quantity,
+             String description, String productTags, String policy, int productPrice,
+             MultipartFile image1, MultipartFile image2, MultipartFile image3,
+             MultipartFile image4, MultipartFile image5, MultipartFile image6,
+             long sgst, long igst, double weight, Integer base_price, long discount_per,
+             boolean discount, String discount_type, double discount_price,
+             double igst_price, double sgst_price, double final_price) throws UserException ;
 	public List<Product> getProductsByCategoryId(Long categoryId);
 	
 	public List<Product> getProductsByCategoryIdSortedByPriceDesc(Long categoryId);
