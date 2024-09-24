@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techverse.exception.OrderException;
+import com.techverse.exception.UserException;
 import com.techverse.model.Order;
+import com.techverse.model.OrderItem;
 import com.techverse.response.ApiResponse;
+import com.techverse.service.OrderItemService;
 import com.techverse.service.OrderService;
 
 @RestController
@@ -26,8 +29,28 @@ public class AdminOrderController {
 	
 	@Autowired
 	private OrderService orderService;
-	
+	@Autowired
+	private OrderItemService orderItemService;
 	 
+	 
+	
+	
+	  @GetMapping("/orderItems/{orderStatus}")
+	    public ResponseEntity<Map<String, Object>> getOrderItemsBySellerAndStatus(
+	    		@RequestHeader("Authorization")String jwt,
+	             
+	            @PathVariable String orderStatus)throws UserException {
+		  
+		  List<OrderItem> orderItems=orderItemService.getOrderItemsBySellerAndStatus(jwt, orderStatus);
+		  
+		  Map<String,Object> response = new HashMap<>();
+	        response.put("OrderItems", orderItems);
+	         response.put("status", true);
+	        response.put("message", "order Items get successfully");
+	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+	    }
+	  
+	  
 	@GetMapping("/")
 	public ResponseEntity<Map<String, Object>> getAllOrdersHandler(){
 		

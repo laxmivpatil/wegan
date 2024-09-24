@@ -48,17 +48,12 @@ public class CartItemController {
 		 Map<String,Object> response = new HashMap<>();
 				User user=userService.findUserProfileByJwt(jwt);
 				cartItemService.removeUserCartItem(user.getId(), cartItemId);
-				
-				 
-				 
-				 
 				 response.put("cart", cartService.findUserCart(user.getId()));
-					response.put("status", true);
-			        response.put("message", "Item deleted from cart successfully");
-			        return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-				 
-				
+			     response.put("status", true);
+			     response.put("message", "Item deleted from cart successfully");
+			     return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
 			}
+	
 	@DeleteMapping("/cart_items/{cartItemId}")
 	public ResponseEntity<Map<String,Object>> removeGuestCartItem(@PathVariable Long cartItemId
 			 )throws UserException,CartItemException{

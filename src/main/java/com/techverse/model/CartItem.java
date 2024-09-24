@@ -35,7 +35,11 @@ public class CartItem {
 	private Integer discountedPrice;
 	
 	private Long userId;
+	 
 	
+	
+	 
+
 	public CartItem() {
 		// TODO Auto-generated constructor stub
 	}

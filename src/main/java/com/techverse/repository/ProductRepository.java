@@ -52,19 +52,17 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	 List<Product> findByCategoryId(Long categoryId);  
 
-	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.product_price DESC")
+	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.final_price DESC")
 	    List<Product> findByCategoryIdOrderByProductPriceDesc(Long categoryId);
 	 
-	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.product_price ASC")
+	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.final_price ASC")
 	    List<Product> findByCategoryIdOrderByProductPriceASC(Long categoryId);
 	 
-	 
-	 
 
-	 @Query("SELECT p FROM Product p  ORDER BY p.product_price DESC")
+	 @Query("SELECT p FROM Product p  ORDER BY p.final_price DESC")
 	    List<Product> findByOrderByProductPriceDesc();
 	 
-	 @Query("SELECT p FROM Product p  ORDER BY p.product_price ASC")
+	 @Query("SELECT p FROM Product p  ORDER BY p.final_price ASC")
 	    List<Product> findByOrderByProductPriceASC( );
 	 
 	  List<Product> findByCategoryIdAndCreatedAtBetween(long categoryId, LocalDateTime startDateTime, LocalDateTime endDateTime);

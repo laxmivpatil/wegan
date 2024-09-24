@@ -70,7 +70,7 @@ public class AdminProductController {
 	) throws UserException {
 
 		
-		
+		/*
 		
 		  System.out.println("Authorization JWT: " + jwt);
 		    System.out.println("Category ID: " + categoryId);
@@ -96,7 +96,7 @@ public class AdminProductController {
 		    System.out.println("Image3: " + (image3 != null ? image3.getOriginalFilename() : "No image"));
 		    System.out.println("Image4: " + (image4 != null ? image4.getOriginalFilename() : "No image"));
 		    System.out.println("Image5: " + (image5 != null ? image5.getOriginalFilename() : "No image"));
-		    System.out.println("Image6: " + (image6 != null ? image6.getOriginalFilename() : "No image"));
+		    System.out.println("Image6: " + (image6 != null ? image6.getOriginalFilename() : "No image"));*/
 		   // Calling the service method to create the product
 	 Product createdProduct = productService.createProduct1(
 	            jwt,
