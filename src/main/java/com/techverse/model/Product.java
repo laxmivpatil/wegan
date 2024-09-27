@@ -46,6 +46,8 @@ public class Product {
     
     private String site;
     
+    private String status="Active";
+    
     private int quantity;
     
     private String description;
@@ -136,6 +138,16 @@ public class Product {
 
 
 	 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 
 	public String getTitle() {
 		return title;

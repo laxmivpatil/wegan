@@ -259,7 +259,13 @@ public class ProductServiceImplementation implements ProductService{
 	    public List<Product> searchProductByTitle(String search) {
 	        return productRepository.findByTitleContainingIgnoreCase(search);
 	    }
-	 
+		@Override
+		public void changeProductStatus(Long productId,String status) {
+			Optional<Product> p=productRepository.findById(productId);
+			p.get().setStatus(status);
+			productRepository.save(p.get());
+			
+		}
 	 
 	 
 	 

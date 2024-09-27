@@ -40,6 +40,7 @@ public List<Product> getProductsBySortedByPriceDesc();
 	
  	public List<Product> getNewestProducts(int days);
  	
+	public void changeProductStatus(Long productId,String status);
  	
  	public List<Product> searchProductByTitle(String search);
  	

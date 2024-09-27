@@ -127,13 +127,28 @@ public class AdminProductController {
 	            Double.parseDouble(finalPrice)
 	    );
  
+	 createdProduct.setStatus("Active");
 	    // Returning the created product with an OK status
 	    return ResponseEntity.status(HttpStatus.OK).body(createdProduct);
 	}
 
 	
+	@PutMapping("/changeStatus")
+	public ResponseEntity<ApiResponse> deleteProduct(@RequestParam Long productId,@RequestParam String status) throws ProductException{
+		
+		  productService.changeProductStatus(productId, status);
+		 
+		 
+		 ApiResponse res=new ApiResponse();
+		 res.setMessage("product status changed successfully");
+		 res.setStatus(true);
+		 
+		return new ResponseEntity<>(res,HttpStatus.OK);
+		
+	}
+	
 	@DeleteMapping("/delete")
-	public ResponseEntity<ApiResponse> deleteProduct(@RequestParam Long productId) throws ProductException{
+	public ResponseEntity<ApiResponse> changeProductstatus(@RequestParam Long productId) throws ProductException{
 		
 		 productService.deleteProduct(productId);
 		 ApiResponse res=new ApiResponse();
@@ -143,6 +158,7 @@ public class AdminProductController {
 		return new ResponseEntity<>(res,HttpStatus.OK);
 		
 	}
+	
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Product>> findAllProduct() {
