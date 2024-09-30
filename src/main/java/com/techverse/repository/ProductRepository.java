@@ -52,30 +52,31 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	 List<Product> findByCategoryId(Long categoryId);  
 
-	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.final_price DESC")
+	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId AND p.status='Active' ORDER BY p.final_price DESC")
 	    List<Product> findByCategoryIdOrderByProductPriceDesc(Long categoryId);
 	 
-	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId ORDER BY p.final_price ASC")
+	 @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId AND p.status='Active' ORDER BY p.final_price ASC")
 	    List<Product> findByCategoryIdOrderByProductPriceASC(Long categoryId);
 	 
 
-	 @Query("SELECT p FROM Product p  ORDER BY p.final_price DESC")
+	 @Query("SELECT p FROM Product p WHERE p.status='Active'  ORDER BY p.final_price DESC")
 	    List<Product> findByOrderByProductPriceDesc();
 	 
-	 @Query("SELECT p FROM Product p  ORDER BY p.final_price ASC")
+	 @Query("SELECT p FROM Product p  WHERE p.status='Active' ORDER BY p.final_price ASC")
 	    List<Product> findByOrderByProductPriceASC( );
 	 
-	  List<Product> findByCategoryIdAndCreatedAtBetween(long categoryId, LocalDateTime startDateTime, LocalDateTime endDateTime);
+	 List<Product> findByCategoryIdAndCreatedAtBetweenAndStatus(long categoryId, LocalDateTime startDateTime, LocalDateTime endDateTime, String status);
+ 
+	 List<Product> findByCreatedAtBetweenAndStatus(LocalDateTime startDateTime, LocalDateTime endDateTime, String status);
+ 
 	  
-	  List<Product> findByCreatedAtBetween( LocalDateTime startDateTime, LocalDateTime endDateTime);
-	  
-	  
-	  List<Product> findByTitleContainingIgnoreCase(String search);
+	 List<Product> findByTitleContainingIgnoreCaseAndStatus(String search, String status);
 
 	  
 	  //seller
 
 	  List<Product> findByUser(User user);
 
-	  
+	  @Query("SELECT p FROM Product p  WHERE p.status='Active'")
+	    List<Product> findByStatus();
 }

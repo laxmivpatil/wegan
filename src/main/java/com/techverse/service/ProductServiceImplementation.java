@@ -227,13 +227,13 @@ public class ProductServiceImplementation implements ProductService{
 	 public List<Product> getNewestProductsByCategory(long categoryId, int days) {
 	        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(days), LocalTime.MIN);
 	        LocalDateTime endDateTime = LocalDateTime.now();
-	        return productRepository.findByCategoryIdAndCreatedAtBetween(categoryId, startDateTime, endDateTime);
+	        return productRepository.findByCategoryIdAndCreatedAtBetweenAndStatus(categoryId, startDateTime, endDateTime,"Active");
 	    }
 	 @Override
 	 public List<Product> getNewestProducts( int days) {
 	        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.now().minusDays(days), LocalTime.MIN);
 	        LocalDateTime endDateTime = LocalDateTime.now();
-	        return productRepository.findByCreatedAtBetween( startDateTime, endDateTime);
+	        return productRepository.findByCreatedAtBetweenAndStatus( startDateTime, endDateTime,"Active");
 	    }
 	 
 	 @Override
@@ -251,13 +251,16 @@ public class ProductServiceImplementation implements ProductService{
 		public List<Product> findAllProduct()  {
 
 	//by me
-			return productRepository.findAll();
+			//return productRepository.findAll();
+			return productRepository.findByStatus();
+			 
+			 
 		}
 
 	 
 		@Override
 	    public List<Product> searchProductByTitle(String search) {
-	        return productRepository.findByTitleContainingIgnoreCase(search);
+	        return productRepository.findByTitleContainingIgnoreCaseAndStatus(search,"Active");
 	    }
 		@Override
 		public void changeProductStatus(Long productId,String status) {
