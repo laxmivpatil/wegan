@@ -34,6 +34,18 @@ public class AdminOrderController {
 	 
 	 
 	
+	 @PutMapping("/orderItems/{id}/{orderStatus}")
+	    public ResponseEntity<Map<String, Object>> updateOrderItemStatus(
+	            @PathVariable Long id,@PathVariable String orderStatus
+	             ) {
+	        OrderItem updatedOrderItem = orderItemService.updateOrderItemStatus(id, orderStatus);
+	        Map<String,Object> response = new HashMap<>();
+	        response.put("OrderItems",updatedOrderItem);
+	         response.put("status", true);
+	        response.put("message", "order Items updated successfully");
+	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+	    }
+	
 	
 	  @GetMapping("/orderItems/{orderStatus}")
 	    public ResponseEntity<Map<String, Object>> getOrderItemsBySellerAndStatus(
@@ -76,6 +88,7 @@ public class AdminOrderController {
 		
 		
 	}
+ 
 	@GetMapping("/confirmed")
 	public ResponseEntity<Map<String, Object>> getConfirmedOrdersHandler(){
 		

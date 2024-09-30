@@ -12,4 +12,5 @@ public interface OrderItemService {
 	public List<OrderItem> getOrderItemsBySeller(Long sellerId);
 
 	public List<OrderItem> getOrderItemsBySellerAndStatus(String jwt, String orderStatus)throws UserException;
+	 public OrderItem updateOrderItemStatus(Long orderItemId, String newStatus); 
 }

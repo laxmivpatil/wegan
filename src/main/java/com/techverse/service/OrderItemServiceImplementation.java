@@ -1,6 +1,7 @@
 package com.techverse.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,4 +42,21 @@ public class OrderItemServiceImplementation implements OrderItemService {
         return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus);
     }
 
+	
+	// Method to update the status of an OrderItem by its ID
+	@Override
+    public OrderItem updateOrderItemStatus(Long orderItemId, String newStatus) {
+        // Fetch the OrderItem from the database
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(orderItemId);
+
+        if (orderItemOptional.isPresent()) {
+            OrderItem orderItem = orderItemOptional.get();
+            // Update the status
+            orderItem.setOrderItemStatus(newStatus);
+            // Save the updated OrderItem back to the database
+            return orderItemRepository.save(orderItem);
+        } else {
+            throw new RuntimeException("OrderItem not found with id " + orderItemId);
+        }
+    }
 }

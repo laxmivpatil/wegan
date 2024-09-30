@@ -12,7 +12,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 	 @Query("SELECT oi FROM OrderItem oi WHERE oi.product.user.id = :sellerId")
 	    List<OrderItem> findAllBySellerId(Long sellerId);
 	
-	   @Query("SELECT oi FROM OrderItem oi WHERE oi.product.user.id = :sellerId AND oi.order.orderStatus = :orderStatus")
+	   @Query("SELECT oi FROM OrderItem oi WHERE oi.product.user.id = :sellerId AND oi.orderItemStatus = :orderStatus")
 	    List<OrderItem> findAllBySellerIdAndOrderStatus(Long sellerId, String orderStatus);
 
 

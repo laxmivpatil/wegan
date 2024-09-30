@@ -49,6 +49,17 @@ public class OrderItem {
 	
 	private LocalDateTime deliveryDate;
 	
+	private String orderItemStatus="pending";
+	
+	
+	public String getOrderItemStatus() {
+		return orderItemStatus;
+	}
+
+	public void setOrderItemStatus(String orderItemStatus) {
+		this.orderItemStatus = orderItemStatus;
+	}
+
 	public OrderItem() {
 		// TODO Auto-generated constructor stub
 	}
