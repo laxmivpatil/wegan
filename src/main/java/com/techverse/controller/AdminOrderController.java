@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techverse.exception.OrderException;
@@ -34,9 +35,9 @@ public class AdminOrderController {
 	 
 	 
 	
-	 @PutMapping("/orderItems/{id}/{orderStatus}")
+	 @PutMapping("/orderItems")
 	    public ResponseEntity<Map<String, Object>> updateOrderItemStatus(
-	            @PathVariable Long id,@PathVariable String orderStatus
+	    		@RequestParam Long id,@RequestParam String orderStatus
 	             ) {
 	        OrderItem updatedOrderItem = orderItemService.updateOrderItemStatus(id, orderStatus);
 	        Map<String,Object> response = new HashMap<>();
@@ -159,4 +160,16 @@ public class AdminOrderController {
 	}
 	 
 
+	
+	
+	//birth thank you=== "https://satyaprofilestorage.blob.core.windows.net/pragyaschool/Birth_Certificate 1727698402470.png?sv=2020-10-02&st=2024-09-30T12%3A08%3A49Z&se=2099-01-01T00%3A00%3A00Z&sr=b&sp=r&sig=khgQ2ddxjgQRt21xXWPHspjQt43EZXyFL00Aj9zTgBU%3D"
+	
+	//classresult logo=== "https://satyaprofilestorage.blob.core.windows.net/pragyaschool/Last_Year_Result 1727698429039.svg?sv=2020-10-02&st=2024-09-30T12%3A08%3A49Z&se=2099-01-01T00%3A00%3A00Z&sr=b&sp=r&sig=V8lvcOEFWczOzr7hn94HrXE9eN5BApSTM7dn1Edosho%3D"
+	
+	//adhar parent fb =="https://satyaprofilestorage.blob.core.windows.net/pragyaschool/Parent_Aadhar 1727698429119.svg?sv=2020-10-02&st=2024-09-30T12%3A08%3A49Z&se=2099-01-01T00%3A00%3A00Z&sr=b&sp=r&sig=JC8yDuCMz7Mj7gkgk76J1jIcTjOEMKjyGTfpJeyJ1v0%3D"
+	
+	//adhar studentinsta  === "https://satyaprofilestorage.blob.core.windows.net/pragyaschool/Student_Aadhar 1727698429169.svg?sv=2020-10-02&st=2024-09-30T12%3A08%3A49Z&se=2099-01-01T00%3A00%3A00Z&sr=b&sp=r&sig=Rw4KmKJovysJKFmnLIKODuQrUubFStNEQr6MeTLFVKI%3D"
+
+
+//  https://satyaprofilestorage.blob.core.windows.net/pragyaschool/Birth_Certificate 1727699975577.png?sv=2020-10-02&st=2024-09-30T12%3A34%3A37Z&se=2099-01-01T00%3A00%3A00Z&sr=b&sp=r&sig=Lc%2ByX%2BRcwyx7JVwR8cvxC3FY%2BEbRy7Z%2FWbIdseEsn20%3D
 }

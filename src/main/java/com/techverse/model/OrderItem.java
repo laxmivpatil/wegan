@@ -52,6 +52,103 @@ public class OrderItem {
 	private String orderItemStatus="pending";
 	
 	
+	
+	   private String buyerAddressfullName;
+	    private String buyerAddressmobile;
+	    private String buyerAddresspincode;
+	    private String buyerAddresslocality;
+	    private String buyerAddress;
+	    private String buyerAddresscity;
+	    private String buyerAddressstate;
+	    private String buyerAddresslandmark;
+	    private String buyerAddressalternateMobile;
+	    public String getBuyerAddressfullName() {
+			return buyerAddressfullName;
+		}
+
+		public void setBuyerAddressfullName(String buyerAddressfullName) {
+			this.buyerAddressfullName = buyerAddressfullName;
+		}
+
+		public String getBuyerAddressmobile() {
+			return buyerAddressmobile;
+		}
+
+		public void setBuyerAddressmobile(String buyerAddressmobile) {
+			this.buyerAddressmobile = buyerAddressmobile;
+		}
+
+		public String getBuyerAddresspincode() {
+			return buyerAddresspincode;
+		}
+
+		public void setBuyerAddresspincode(String buyerAddresspincode) {
+			this.buyerAddresspincode = buyerAddresspincode;
+		}
+
+		public String getBuyerAddresslocality() {
+			return buyerAddresslocality;
+		}
+
+		public void setBuyerAddresslocality(String buyerAddresslocality) {
+			this.buyerAddresslocality = buyerAddresslocality;
+		}
+
+		public String getBuyerAddress() {
+			return buyerAddress;
+		}
+
+		public void setBuyerAddress(String buyerAddress) {
+			this.buyerAddress = buyerAddress;
+		}
+
+		public String getBuyerAddresscity() {
+			return buyerAddresscity;
+		}
+
+		public void setBuyerAddresscity(String buyerAddresscity) {
+			this.buyerAddresscity = buyerAddresscity;
+		}
+
+		public String getBuyerAddressstate() {
+			return buyerAddressstate;
+		}
+
+		public void setBuyerAddressstate(String buyerAddressstate) {
+			this.buyerAddressstate = buyerAddressstate;
+		}
+
+		public String getBuyerAddresslandmark() {
+			return buyerAddresslandmark;
+		}
+
+		public void setBuyerAddresslandmark(String buyerAddresslandmark) {
+			this.buyerAddresslandmark = buyerAddresslandmark;
+		}
+
+		public String getBuyerAddressalternateMobile() {
+			return buyerAddressalternateMobile;
+		}
+
+		public void setBuyerAddressalternateMobile(String buyerAddressalternateMobile) {
+			this.buyerAddressalternateMobile = buyerAddressalternateMobile;
+		}
+
+		public String getBuyerAddressType() {
+			return buyerAddressType;
+		}
+
+		public void setBuyerAddressType(String buyerAddressType) {
+			this.buyerAddressType = buyerAddressType;
+		}
+
+		private String buyerAddressType;
+	    
+	    
+	    
+	    
+	    
+	
 	public String getOrderItemStatus() {
 		return orderItemStatus;
 	}

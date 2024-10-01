@@ -71,6 +71,19 @@ public class OrderServiceImplementation implements OrderService{
 			orderItem.setUserId(item.getUserId());
 			orderItem.setDiscountedPrice(item.getDiscountedPrice());
 			
+			 
+			orderItem.setBuyerAddressfullName(address.getFullName());
+			orderItem.setBuyerAddressmobile(address.getMobile());
+			orderItem.setBuyerAddresspincode(address.getPincode());
+			orderItem.setBuyerAddresslocality(address.getLocality());
+			orderItem.setBuyerAddress(address.getAddress());
+			orderItem.setBuyerAddresscity(address.getCity());
+			orderItem.setBuyerAddressstate(address.getState());
+			orderItem.setBuyerAddresslandmark(address.getLandmark());
+			orderItem.setBuyerAddressalternateMobile(address.getAlternateMobile());
+			
+			
+			
 			OrderItem createdOrderItem=orderItemRepository.save(orderItem);
 			
 			orderItems.add(createdOrderItem);
