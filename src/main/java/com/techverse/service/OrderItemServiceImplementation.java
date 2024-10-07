@@ -41,8 +41,20 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		
         return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus);
     }
-
-	
+	@Override
+	public List<OrderItem> getOrderItemsByBuyerAndStatus(String jwt, String orderStatus) throws UserException {
+		User user =userService.findUserProfileByJwt(jwt);
+		
+		
+        return orderItemRepository.findAllByBuyerIdAndOrderStatus(user.getId(), orderStatus);
+    }
+	@Override
+	public List<OrderItem> getOrderItemsByBuyer(String jwt) throws UserException {
+		User user =userService.findUserProfileByJwt(jwt);
+		
+		
+        return orderItemRepository.findAllByBuyerId(user.getId());
+    }
 	// Method to update the status of an OrderItem by its ID
 	@Override
     public OrderItem updateOrderItemStatus(Long orderItemId, String newStatus) {

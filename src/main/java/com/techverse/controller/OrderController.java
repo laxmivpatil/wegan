@@ -28,6 +28,7 @@ import com.techverse.exception.UserException;
 import com.techverse.model.Address;
 import com.techverse.model.Cart;
 import com.techverse.model.Order;
+import com.techverse.model.OrderItem;
 import com.techverse.model.ShippingAddress;
 import com.techverse.model.User;
 import com.techverse.repository.ShippingAddressRepository;
@@ -46,6 +47,8 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private OrderItemService orderItemService;
 	
 	@Autowired
 	private UserService userService;
@@ -367,7 +370,21 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 		
 	}
 	
-	
+	 @GetMapping("/user/orderItems")
+	    public ResponseEntity<Map<String, Object>> getOrderItemsByBuyer(
+	    		@RequestHeader("Authorization")String jwt
+	             
+	            )throws UserException {
+		  
+		  List<OrderItem> orderItems=orderItemService.getOrderItemsByBuyer(jwt);
+		   
+		  Map<String,Object> response = new HashMap<>();
+	        response.put("OrderItems", orderItems);
+	         response.put("status", true);
+	        response.put("message", "order Items get successfully");
+	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+	    }
+	  
 	@GetMapping("/{Id}")
 	public ResponseEntity<Order> findOrderById(@PathVariable("Id") Long orderId,
 			@RequestHeader("Authorization") String jwt)throws UserException,OrderException{
