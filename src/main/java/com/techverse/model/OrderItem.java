@@ -62,7 +62,18 @@ public class OrderItem {
 	    private String buyerAddressstate;
 	    private String buyerAddresslandmark;
 	    private String buyerAddressalternateMobile;
-	    public String getBuyerAddressfullName() {
+	    private String reason="";
+	    
+	    
+	    public String getReason() {
+			return reason;
+		}
+
+		public void setReason(String reason) {
+			this.reason = reason;
+		}
+
+		public String getBuyerAddressfullName() {
 			return buyerAddressfullName;
 		}
 

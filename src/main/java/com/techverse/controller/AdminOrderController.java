@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techverse.exception.OrderException;
@@ -37,9 +38,18 @@ public class AdminOrderController {
 	
 	 @PutMapping("/orderItems")
 	    public ResponseEntity<Map<String, Object>> updateOrderItemStatus(
-	    		@RequestParam Long id,@RequestParam String orderStatus
+	    		@RequestParam Long id,@RequestParam String orderStatus,@RequestPart(value="reason", required = false) String reason
 	             ) {
-	        OrderItem updatedOrderItem = orderItemService.updateOrderItemStatus(id, orderStatus);
+		  OrderItem updatedOrderItem=null;
+	 
+		 if(!orderStatus.equals("cancelled")) {
+	        updatedOrderItem = orderItemService.updateOrderItemStatus(id, orderStatus);
+		 }
+		 else
+		 {
+			 updatedOrderItem = orderItemService.updateOrderItemStatusandReason(id, orderStatus,reason);
+		 }
+		 
 	        Map<String,Object> response = new HashMap<>();
 	        response.put("OrderItems",updatedOrderItem);
 	         response.put("status", true);

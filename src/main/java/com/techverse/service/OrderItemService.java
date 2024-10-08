@@ -16,4 +16,6 @@ public interface OrderItemService {
 	public List<OrderItem> getOrderItemsByBuyer(String jwt)throws UserException;
 	
 	 public OrderItem updateOrderItemStatus(Long orderItemId, String newStatus); 
+	 public OrderItem updateOrderItemStatusandReason(Long orderItemId, String newStatus,String reason); 
 }
+
