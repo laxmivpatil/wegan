@@ -38,7 +38,7 @@ public class AdminOrderController {
 	
 	 @PutMapping("/orderItems")
 	    public ResponseEntity<Map<String, Object>> updateOrderItemStatus(
-	    		@RequestParam Long id,@RequestParam String orderStatus,@RequestPart(value="reason", required = false) String reason
+	    		@RequestParam Long id,@RequestParam String orderStatus,@RequestParam(value="reason", required = false) String reason
 	             ) {
 		  OrderItem updatedOrderItem=null;
 	 
