@@ -1,5 +1,6 @@
 package com.techverse.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,6 @@ private double tax;
 	private double shipping;
 	
 	private double totalpricewithcharges;
-	
-	
 	
 	
 

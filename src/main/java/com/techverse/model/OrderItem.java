@@ -1,5 +1,6 @@
 package com.techverse.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -63,7 +64,36 @@ public class OrderItem {
 	    private String buyerAddresslandmark;
 	    private String buyerAddressalternateMobile;
 	    private String reason="";
+	    private LocalDate confirmeddate;
+		
+	    private LocalDate accepttortddate;
+		
+	    private LocalDate rejectdate;
 	    
+
+		public LocalDate getAccepttortddate() {
+			return accepttortddate;
+		}
+
+		public void setAccepttortddate(LocalDate accepttortddate) {
+			this.accepttortddate = accepttortddate;
+		}
+
+		public LocalDate getRejectdate() {
+			return rejectdate;
+		}
+
+		public void setRejectdate(LocalDate rejectdate) {
+			this.rejectdate = rejectdate;
+		}
+
+		public LocalDate getConfirmeddate() {
+			return confirmeddate;
+		}
+
+		public void setConfirmeddate(LocalDate confirmeddate) {
+			this.confirmeddate = confirmeddate;
+		}
 	    
 	    public String getReason() {
 			return reason;

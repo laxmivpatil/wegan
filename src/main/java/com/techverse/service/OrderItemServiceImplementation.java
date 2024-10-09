@@ -1,5 +1,6 @@
 package com.techverse.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,8 @@ public class OrderItemServiceImplementation implements OrderItemService {
             OrderItem orderItem = orderItemOptional.get();
             // Update the status
             orderItem.setOrderItemStatus(newStatus);
+            LocalDate currentDate = LocalDate.now();
+            orderItem.setAccepttortddate(currentDate);;
             // Save the updated OrderItem back to the database
             return orderItemRepository.save(orderItem);
         } else {
@@ -88,6 +91,8 @@ public class OrderItemServiceImplementation implements OrderItemService {
             OrderItem orderItem = orderItemOptional.get();
             // Update the status
             orderItem.setOrderItemStatus(newStatus);
+            LocalDate currentDate = LocalDate.now();
+            orderItem.setRejectdate(currentDate);
             orderItem.setReason(reason);   
             // Save the updated OrderItem back to the database
             return orderItemRepository.save(orderItem);

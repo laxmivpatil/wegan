@@ -392,9 +392,10 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	    public ResponseEntity<Map<String, Object>> getOrderItemsByOrderId(
 	    		@RequestHeader("Authorization")String jwt,
 	    		@PathVariable("Id") Long orderId
-	            )throws UserException {
-		  
-		  List<OrderItem> orderItems=orderItemService.getOrderItemsByBuyer(jwt);
+	            )throws UserException, OrderException {
+		 User user =userService.findUserProfileByJwt(jwt);
+		 Order order=orderService.findOrderById(orderId);
+		  List<OrderItem> orderItems=orderItemService.getOrderItemsByOrderId(jwt, order);
 		   
 		  Map<String,Object> response = new HashMap<>();
 	        response.put("OrderItems", orderItems);
