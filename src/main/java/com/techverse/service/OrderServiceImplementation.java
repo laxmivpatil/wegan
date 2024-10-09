@@ -140,6 +140,13 @@ public class OrderServiceImplementation implements OrderService{
 	}
 
 	@Override
+	public List<Order> usersOrderHistorydesc(User user) {
+		//List<Order> orders=orderRepository.getUsersOreders(userId);
+		List<Order> orders=orderRepository.findByUserOrderByCreatedAtDesc(user);
+		
+		return orders;
+	}
+	@Override
 	public Order placedOrder(Long orderId) throws OrderException {
 		Order order=findOrderById(orderId);
 		order.setOrderStatus("PLACED");

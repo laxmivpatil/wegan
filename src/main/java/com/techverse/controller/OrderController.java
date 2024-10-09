@@ -63,6 +63,8 @@ public class OrderController {
 	@Autowired
 	private ShippingAddressRepository shippingAddressRepository;
 	
+	
+	  
 	@PostMapping("/addshippingaddress")
     public ResponseEntity<Map<String, Object>> addShippingAddress(@RequestBody ShippingAddress shippingAddress,@RequestHeader("Authorization") String jwt)throws UserException {
         // Retrieve the user by ID (you may adjust this based on your authentication mechanism)
@@ -356,10 +358,10 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	
 	
 	@GetMapping("/user")
-	public ResponseEntity<Map<String, Object>> userOrderHistory(@RequestHeader("Authorization") String jwt,@PathVariable("Id") Long orderId)throws UserException{
+	public ResponseEntity<Map<String, Object>> userOrderHistory(@RequestHeader("Authorization") String jwt)throws UserException{
 		
 		User user =userService.findUserProfileByJwt(jwt);
-		List<Order> order=orderService.usersOrderHistory(user.getId());
+		List<Order> order=orderService.usersOrderHistorydesc(user);
 		
 		Map<String,Object> response = new HashMap<>();
         response.put("Order", order);

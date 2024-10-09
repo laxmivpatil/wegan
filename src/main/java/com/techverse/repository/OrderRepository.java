@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.techverse.model.Order;
+import com.techverse.model.User;
 
 public interface OrderRepository extends JpaRepository<Order,Long>{
 	
@@ -21,5 +22,7 @@ public interface OrderRepository extends JpaRepository<Order,Long>{
 	
 	 // Method to find orders by user and order status, sorted by createdAt in ascending order
     List<Order> findByOrderStatusOrderByCreatedAtAsc(String orderStatus);
+    
+    List<Order> findByUserOrderByCreatedAtDesc(User user);
 
 }
