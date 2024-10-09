@@ -109,7 +109,7 @@ public class OrderServiceImplementation implements OrderService{
 		createdOrder.getPaymentDetails().setStatus("PENDING");
 		createdOrder.getPaymentDetails().setPaymentMethod(result.get("paymentLink"));
 		createdOrder.setCreatedAt(LocalDateTime.now());
-		
+		createdOrder.setOrderItemCount(orderItems.size());
 		Order savedOrder=orderRepository.save(createdOrder);
 		
 		

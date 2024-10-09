@@ -59,6 +59,7 @@ public class Order {
 	private String orderStatus;
 	
 	private int totalItem;
+	private int orderItemCount=0;
 	
 	private LocalDateTime createdAt;
 	
@@ -69,6 +70,14 @@ private double tax;
 	private double totalpricewithcharges;
 	
 	
+
+	public int getOrderItemCount() {
+		return orderItemCount;
+	}
+
+	public void setOrderItemCount(int orderItemCount) {
+		this.orderItemCount = orderItemCount;
+	}
 
 	public Order() {
  

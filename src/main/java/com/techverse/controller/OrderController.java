@@ -383,6 +383,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 		   
 		  Map<String,Object> response = new HashMap<>();
 	        response.put("OrderItems", orderItems);
+	        response.put("orderItemCount", orderItems.size());
 	         response.put("status", true);
 	        response.put("message", "order Items get successfully");
 	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
@@ -412,7 +413,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 		User user =userService.findUserProfileByJwt(jwt);
 		
 		Order order=orderService.findOrderById(orderId);
-		
+		 
 		 return new ResponseEntity<>(order,HttpStatus.OK);
 		
 		
