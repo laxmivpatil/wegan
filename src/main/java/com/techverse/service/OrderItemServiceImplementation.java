@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techverse.exception.UserException;
+import com.techverse.model.Order;
 import com.techverse.model.OrderItem;
 import com.techverse.model.User;
 import com.techverse.repository.OrderItemRepository;
@@ -54,6 +55,13 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		
 		
         return orderItemRepository.findAllByBuyerId(user.getId());
+    }
+	@Override
+	public List<OrderItem> getOrderItemsByOrderId(String jwt,Order order) throws UserException {
+		User user =userService.findUserProfileByJwt(jwt);
+		
+		
+        return orderItemRepository.findByOrder(order);
     }
 	// Method to update the status of an OrderItem by its ID
 	@Override

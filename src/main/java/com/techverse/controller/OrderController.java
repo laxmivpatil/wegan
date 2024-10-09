@@ -388,6 +388,20 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
 	    }
 	 
+	 @GetMapping("/user/orderItems/id/{Id}")
+	    public ResponseEntity<Map<String, Object>> getOrderItemsByOrderId(
+	    		@RequestHeader("Authorization")String jwt,
+	    		@PathVariable("Id") Long orderId
+	            )throws UserException {
+		  
+		  List<OrderItem> orderItems=orderItemService.getOrderItemsByBuyer(jwt);
+		   
+		  Map<String,Object> response = new HashMap<>();
+	        response.put("OrderItems", orderItems);
+	         response.put("status", true);
+	        response.put("message", "order Items get successfully");
+	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+	    }
 	 
 	  
 	@GetMapping("/{Id}")
