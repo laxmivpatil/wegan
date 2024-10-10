@@ -53,7 +53,7 @@ public class OrderItem {
 	private String orderItemStatus="pending";
 	
 	
-	
+	private String buyerfullName;
 	   private String buyerAddressfullName;
 	    private String buyerAddressmobile;
 	    private String buyerAddresspincode;
@@ -70,6 +70,14 @@ public class OrderItem {
 		
 	    private LocalDate rejectdate;
 	    
+
+		public String getBuyerfullName() {
+			return buyerfullName;
+		}
+
+		public void setBuyerfullName(String buyerfullName) {
+			this.buyerfullName = buyerfullName;
+		}
 
 		public LocalDate getAccepttortddate() {
 			return accepttortddate;

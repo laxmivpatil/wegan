@@ -71,7 +71,7 @@ public class OrderServiceImplementation implements OrderService{
 			orderItem.setUserId(item.getUserId());
 			orderItem.setDiscountedPrice(item.getDiscountedPrice());
 			
-			 
+			 orderItem.setBuyerfullName(user.getName());
 			orderItem.setBuyerAddressfullName(address.getFullName());
 			orderItem.setBuyerAddressmobile(address.getMobile());
 			orderItem.setBuyerAddresspincode(address.getPincode());
