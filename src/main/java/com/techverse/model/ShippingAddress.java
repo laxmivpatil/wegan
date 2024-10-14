@@ -169,7 +169,10 @@ public class ShippingAddress {
 		this.user = user;
 	}
     
-    
+	public String getFullAddress() {
+	    return address + ", " + locality + ", " + city + ", " + state + " - " + pincode + ", " + country;
+	}
+
     
     
 	 

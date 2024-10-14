@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +36,7 @@ import com.techverse.model.User;
 import com.techverse.repository.ShippingAddressRepository;
 import com.techverse.repository.UserRepository;
 import com.techverse.response.ApiResponse;
+import com.techverse.service.InvoiceService;
 import com.techverse.service.OrderItemService;
 import com.techverse.service.OrderService;
 import com.techverse.service.RazorpayService;
@@ -63,8 +65,12 @@ public class OrderController {
 	@Autowired
 	private ShippingAddressRepository shippingAddressRepository;
 	
-	
-	  
+	/*  @GetMapping("/invoice")
+	    public ResponseEntity<String> getInvoice() {
+	    	 String result = InvoiceService.createInvoice();
+	         return new ResponseEntity<>(result, HttpStatus.OK);
+	    }
+*/	  
 	@PostMapping("/addshippingaddress")
     public ResponseEntity<Map<String, Object>> addShippingAddress(@RequestBody ShippingAddress shippingAddress,@RequestHeader("Authorization") String jwt)throws UserException {
         // Retrieve the user by ID (you may adjust this based on your authentication mechanism)
@@ -310,15 +316,18 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	}
 	
 	
-	@GetMapping("/verifypayment/{Id}")
-	public  ResponseEntity<Map<String, Object>>  verifyPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId)throws UserException,RazorpayException{
+	@GetMapping("/verifypayment/{Id}/{orderId}")
+	public  ResponseEntity<Map<String, Object>>  verifyPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId,@PathVariable("orderId") Long orderId)throws UserException,RazorpayException, OrderException{
 		
 		 
-		
-		Payment payment= razorpayService.verifyPayment(paymentId);
+		Order order=orderService.findOrderById(orderId);
+		  // Step 2: Generate the invoice
+        String invoiceResponse = InvoiceService.saveInvoice(order); // Pass the order to the invoice service
 
+		Payment payment= razorpayService.verifyPayment(paymentId);
+		 
 		Map<String,Object> response = new HashMap<>();
-        response.put("Payment",payment.get("status"));
+      //  response.put("Payment",payment.get("status"));
          response.put("status", true);
         response.put("message", "payment get successfully");
         return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
