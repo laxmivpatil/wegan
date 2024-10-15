@@ -318,10 +318,10 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	
 	
 	@PostMapping("/verifypayment/{Id}/{orderId}")
-	public  ResponseEntity<Map<String, Object>>  verifyPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId,@PathVariable("orderId") Long orderId)throws UserException,RazorpayException, OrderException{
+	public  ResponseEntity<Map<String, Object>>  verifyPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId,@PathVariable("orderId") String orderId)throws UserException,RazorpayException, OrderException{
 		
 		 
-		Order order=orderService.findOrderById(orderId);
+		Order order=orderService.getOrderByOrderId(orderId);
 		  // Step 2: Generate the invoice
         String invoiceResponse = invoiceService.saveInvoice(order); // Pass the order to the invoice service
 

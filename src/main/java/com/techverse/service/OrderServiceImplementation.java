@@ -130,7 +130,15 @@ public class OrderServiceImplementation implements OrderService{
 		 }
 		 throw new OrderException("Order not Exist with id "+orderId);
 	}
-
+	@Override
+	 public Order getOrderByOrderId(String orderId)throws OrderException  {
+	         Optional<Order> opt=orderRepository.findByOrderId(orderId);
+			 if(opt.isPresent())
+			 {
+			return opt.get();
+			 }
+			 throw new OrderException("Order not Exist with id "+orderId);
+	    }
 	@Override
 	public List<Order> usersOrderHistory(Long userId) {
 		//List<Order> orders=orderRepository.getUsersOreders(userId);

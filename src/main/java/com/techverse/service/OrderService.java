@@ -1,6 +1,7 @@
 package com.techverse.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.razorpay.RazorpayException;
 import com.techverse.exception.OrderException;
@@ -17,6 +18,8 @@ public interface OrderService {
 	
 	public List<Order> usersOrderHistory(Long userId);
 	public List<Order> usersOrderHistorydesc(User user);
+	
+	public Order getOrderByOrderId(String orderId) throws OrderException;
 	
 	public Order placedOrder(Long orderId) throws OrderException;
 	
