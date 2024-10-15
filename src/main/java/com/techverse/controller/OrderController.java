@@ -317,7 +317,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	}
 	
 	
-	@GetMapping("/verifypayment/{Id}/{orderId}")
+	@PostMapping("/verifypayment/{Id}/{orderId}")
 	public  ResponseEntity<Map<String, Object>>  verifyPayment(@RequestHeader("Authorization") String jwt,@PathVariable("Id") String paymentId,@PathVariable("orderId") Long orderId)throws UserException,RazorpayException, OrderException{
 		
 		 
