@@ -8,9 +8,12 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.techverse.model.Invoice;
 import com.techverse.model.Order;
 import com.techverse.model.OrderItem;
+import com.techverse.repository.InvoiceRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -23,24 +26,28 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class InvoiceService {
 
+	@Autowired
+	private StorageService storageService;
+	@Autowired
+	private InvoiceRepository invoiceRepository;
 	
 	
-	public static String saveInvoice(Order order) {
+	public   String saveInvoice(Order order) {
 	    byte[] pdfBytes = generateInvoice(order);
-	    String filePath = "G:/" + order.getOrderId() + ".pdf"; // Specify your desired path here
-
-	    try (FileOutputStream fos = new FileOutputStream(new File(filePath))) {
-	        fos.write(pdfBytes);
-	        fos.flush();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return "Error saving file: " + e.getMessage();
-	    }
+	    
+	    String filePath =  order.getOrderId() + ".pdf"; // Specify your desired path here
+	    String file= storageService.uploadbyteFileOnAzure(pdfBytes, filePath);
+	      Invoice i=new Invoice();
+	     i.setDate(LocalDate.now());
+	     i.setUrl(file);
+	     order.setInvoice(i);
+	     i.setOrder(order);
+	    invoiceRepository.save(i);
 	    
 	    return "Invoice saved successfully at " + filePath;
 	}
 
-	private static byte[] generateInvoice(Order order) {
+	private   byte[] generateInvoice(Order order) {
 	    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 	    
 	    try {

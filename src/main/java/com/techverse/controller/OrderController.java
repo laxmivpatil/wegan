@@ -60,7 +60,8 @@ public class OrderController {
 	
 	@Autowired
 	private RazorpayService razorpayService;
-	
+	@Autowired
+	private InvoiceService invoiceService;
 	
 	@Autowired
 	private ShippingAddressRepository shippingAddressRepository;
@@ -322,7 +323,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 		 
 		Order order=orderService.findOrderById(orderId);
 		  // Step 2: Generate the invoice
-        String invoiceResponse = InvoiceService.saveInvoice(order); // Pass the order to the invoice service
+        String invoiceResponse = invoiceService.saveInvoice(order); // Pass the order to the invoice service
 
 		Payment payment= razorpayService.verifyPayment(paymentId);
 		 
