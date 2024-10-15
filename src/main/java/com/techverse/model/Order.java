@@ -69,9 +69,10 @@ private double tax;
 	
 	private double totalpricewithcharges;
 	
-	 @OneToOne
-	    @JoinColumn(name = "invoice_id", nullable = false)
-	    private Invoice invoice;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "invoice_id", nullable = true) // Set nullable to true
+	private Invoice invoice;
+
 	
 	
 

@@ -297,8 +297,8 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	@PostMapping("/")
 	public  ResponseEntity<Map<String, Object>>  createOrder(@RequestHeader("Authorization") String jwt)throws UserException,RazorpayException{
 		
-		User user =userService.findUserProfileByJwt(jwt);
-		 
+		User user =userService.findUserProfileByJwt(jwt); 
+		System.out.println(user.getEmail());
 		ShippingAddress shippingAddress=userService.getDefaultShippingAddress(user);
 		
 		Order order=orderService.createOrder(user, shippingAddress);
