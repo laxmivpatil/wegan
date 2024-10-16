@@ -38,7 +38,7 @@ public interface OrderService {
 	 
 	public List<Order> getPendingOrders();  
 	 
-	
+	 public void cancelOrder( Long orderId) throws OrderException;
 	
 	public void deleteOrder(Long orderId)throws OrderException;
 	

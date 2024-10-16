@@ -444,6 +444,16 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 		
 	}
 	
+	
+	 @PutMapping("/{orderId}/cancel")
+	    public ResponseEntity<?> cancelOrderByBuyer(@PathVariable Long orderId) {
+	        try {
+	            orderService.cancelOrder(orderId);
+	            return ResponseEntity.ok("Order cancelled successfully.");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel order: " + e.getMessage());
+	        }
+	    }
 
 }
 

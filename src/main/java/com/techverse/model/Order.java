@@ -63,6 +63,8 @@ public class Order {
 	
 	private LocalDateTime createdAt;
 	
+	private LocalDate cancelAt;
+	
 private double tax;
 	
 	private double shipping;
@@ -90,6 +92,14 @@ private double tax;
 
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
+	}
+
+	public LocalDate getCancelAt() {
+		return cancelAt;
+	}
+
+	public void setCancelAt(LocalDate cancelAt) {
+		this.cancelAt = cancelAt;
 	}
 
 	public Order() {

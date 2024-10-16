@@ -107,7 +107,7 @@ public class AdminProductController {
 	            description,
 	            productTags,
 	            policy,
-	            Integer.parseInt("0"), // Placeholder for productPrice, needs to be replaced with actual value
+	            Integer.parseInt("0"),  
 	            image1,
 	            image2,
 	            image3,

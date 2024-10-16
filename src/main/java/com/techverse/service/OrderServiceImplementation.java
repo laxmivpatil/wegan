@@ -1,11 +1,14 @@
 package com.techverse.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,11 +55,7 @@ public class OrderServiceImplementation implements OrderService{
 
 	@Override
 	public Order createOrder(User user, ShippingAddress address) throws RazorpayException{
-		 
-		 		 
-		 
-		
-		
+	 
 		Cart cart =cartService.findUserCart(user.getId());
 		List<OrderItem> orderItems=new ArrayList<>();
 		
@@ -230,6 +229,28 @@ public class OrderServiceImplementation implements OrderService{
 		
 	}
  
+	
+	   @Override
+	   @Transactional
+	    public void cancelOrder( Long orderId) throws OrderException {
+	        Order order = findOrderById(orderId);
+	        if (order == null) {
+	            throw new RuntimeException("Order not found");
+	        }
+
+	        // Set order status to cancelled
+	        order.setOrderStatus("cancelled");
+	        order.setCancelAt(LocalDate.now());
+
+	        // Cancel all order items
+	        for (OrderItem item : order.getOrderItems()) {
+	           item.setOrderItemStatus("cancelled");
+	           item.setCancelAt(LocalDate.now());
+	        }
+
+	        // Save the updated order
+	        orderRepository.save(order);
+	    }
 	
 	
 	

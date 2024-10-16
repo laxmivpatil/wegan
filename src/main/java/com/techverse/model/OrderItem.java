@@ -70,6 +70,7 @@ public class OrderItem {
 		
 	    private LocalDate rejectdate;
 	    
+	    private LocalDate cancelAt;
 
 		public String getBuyerfullName() {
 			return buyerfullName;
@@ -89,6 +90,14 @@ public class OrderItem {
 
 		public LocalDate getRejectdate() {
 			return rejectdate;
+		}
+
+		public LocalDate getCancelAt() {
+			return cancelAt;
+		}
+
+		public void setCancelAt(LocalDate cancelAt) {
+			this.cancelAt = cancelAt;
 		}
 
 		public void setRejectdate(LocalDate rejectdate) {
