@@ -446,13 +446,16 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	
 	
 	 @PutMapping("/{orderId}/cancel")
-	    public ResponseEntity<?> cancelOrderByBuyer(@PathVariable Long orderId) {
-	        try {
+	    public ResponseEntity<ApiResponse> cancelOrderByBuyer(@PathVariable Long orderId) throws OrderException {
+	         
 	            orderService.cancelOrder(orderId);
-	            return ResponseEntity.ok("Order cancelled successfully.");
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to cancel order: " + e.getMessage());
-	        }
+	            
+	            ApiResponse res=new ApiResponse();
+	   		 res.setMessage("Order cancelled successfully");
+	   		 res.setStatus(true);
+	   		 return new ResponseEntity<>(res,HttpStatus.OK);
+	   		 
+	         
 	    }
 
 }
