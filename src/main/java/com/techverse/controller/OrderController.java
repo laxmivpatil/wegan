@@ -457,7 +457,7 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	   		 
 	         
 	    }
-	 @PutMapping("/orderItems/cancel")
+	 @PutMapping("/user/orderItems/cancel")
 	    public ResponseEntity<Map<String, Object>> requestcancelOrderItembyBuyer(
 	    		@RequestParam Long orderItemId,@RequestParam(value="reason", required = false) String reason
 	             ) {
