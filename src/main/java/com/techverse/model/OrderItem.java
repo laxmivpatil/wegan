@@ -71,6 +71,8 @@ public class OrderItem {
 	    private LocalDate rejectdate;
 	    
 	    private LocalDate cancelAt;
+	    
+	    private LocalDate requestcancellation;
 
 		public String getBuyerfullName() {
 			return buyerfullName;
@@ -86,6 +88,15 @@ public class OrderItem {
 
 		public void setAccepttortddate(LocalDate accepttortddate) {
 			this.accepttortddate = accepttortddate;
+		}
+
+		
+		public LocalDate getRequestcancellation() {
+			return requestcancellation;
+		}
+
+		public void setRequestcancellation(LocalDate requestcancellation) {
+			this.requestcancellation = requestcancellation;
 		}
 
 		public LocalDate getRejectdate() {

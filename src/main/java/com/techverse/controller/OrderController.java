@@ -457,6 +457,24 @@ System.out.println("fkdgjkhdfkjghkdfjhg");
 	   		 
 	         
 	    }
+	 @PutMapping("/orderItems/cancel")
+	    public ResponseEntity<Map<String, Object>> requestcancelOrderItembyBuyer(
+	    		@RequestParam Long orderItemId,@RequestParam(value="reason", required = false) String reason
+	             ) {
+		  OrderItem updatedOrderItem=null;
+	  
+			 updatedOrderItem = orderItemService.requstCancelOrderItemStatusandReason(orderItemId, "request for cancellation",reason);
+		 
+		 
+	        Map<String,Object> response = new HashMap<>();
+	        response.put("OrderItems",updatedOrderItem);
+	         response.put("status", true);
+	        response.put("message", "order Items updated successfully");
+	        return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
+	    }
+	
+	
+	     
 
 }
 

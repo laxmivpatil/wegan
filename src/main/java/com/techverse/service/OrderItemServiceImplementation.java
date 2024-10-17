@@ -100,6 +100,24 @@ public class OrderItemServiceImplementation implements OrderItemService {
             throw new RuntimeException("OrderItem not found with id " + orderItemId);
         }
     }
+	@Override
+    public OrderItem requstCancelOrderItemStatusandReason(Long orderItemId, String newStatus,String reason) {
+        // Fetch the OrderItem from the database
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(orderItemId);
+
+        if (orderItemOptional.isPresent()) {
+            OrderItem orderItem = orderItemOptional.get();
+            // Update the status
+            orderItem.setOrderItemStatus(newStatus);
+            LocalDate currentDate = LocalDate.now();
+            orderItem.setRequestcancellation(currentDate);
+            orderItem.setReason(reason);   
+            // Save the updated OrderItem back to the database
+            return orderItemRepository.save(orderItem);
+        } else {
+            throw new RuntimeException("OrderItem not found with id " + orderItemId);
+        }
+    }
 }
 
 
