@@ -22,6 +22,7 @@ import com.techverse.exception.UserException;
 import com.techverse.model.Order;
 import com.techverse.model.OrderItem;
 import com.techverse.response.ApiResponse;
+import com.techverse.service.EmailService;
 import com.techverse.service.OrderItemService;
 import com.techverse.service.OrderService;
 
@@ -33,6 +34,8 @@ public class AdminOrderController {
 	private OrderService orderService;
 	@Autowired
 	private OrderItemService orderItemService;
+	@Autowired
+	private EmailService emailService;
 	 
 	 
 	

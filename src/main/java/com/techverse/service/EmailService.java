@@ -1,6 +1,7 @@
 package com.techverse.service;
 
 import java.security.SecureRandom;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -22,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 @Service
 public class EmailService {
@@ -48,8 +51,17 @@ public class EmailService {
      
      @Autowired
      private JavaMailSender emailSender;
+     @Autowired
+     private SpringTemplateEngine templateEngine;
 
      
+     
+     public String generateEmailContent(String templateName, Map<String, Object> variables) {
+         Context context = new Context();
+         context.setVariables(variables);
+         return templateEngine.process(templateName, context);
+     }
+
 	
 	public boolean sendEmail(String recipientEmail,String emailSubject, String emailBody)
 	{
