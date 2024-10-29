@@ -441,6 +441,20 @@ public class OrderController {
 		response.put("message", "order Items updated successfully");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	@PutMapping("/user/orderItems/return")
+	public ResponseEntity<Map<String, Object>> returnOrderItembyBuyer(@RequestParam Long orderItemId,
+			@RequestParam(value = "reason", required = false) String reason) {
+		OrderItem updatedOrderItem = null;
+
+		updatedOrderItem = orderItemService.returnOrderItemStatusandReason(orderItemId,
+				"return", reason);
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("OrderItems", updatedOrderItem);
+		response.put("status", true);
+		response.put("message", "order Items updated successfully");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
 
 }
 
