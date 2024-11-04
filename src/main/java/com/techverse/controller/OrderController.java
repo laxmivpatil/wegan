@@ -447,7 +447,7 @@ public class OrderController {
 		OrderItem updatedOrderItem = null;
 
 		updatedOrderItem = orderItemService.returnOrderItemStatusandReason(orderItemId,
-				"request for return", reason);
+				"Request for Return", reason);
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("OrderItems", updatedOrderItem);
