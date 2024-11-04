@@ -46,6 +46,12 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		if(orderStatus.equals("cancelled")) {
 			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for cancellation accept");
 		}
+		if(orderStatus.equals("return")) {
+			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for return accept");
+		}
+		if(orderStatus.equals("delivered")) {
+			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for return reject");
+		}
         return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus);
         
         
@@ -136,8 +142,11 @@ public class OrderItemServiceImplementation implements OrderItemService {
     }
 	
 	
+	
+	//by buyer
+	
 	@Override
-    public OrderItem returnOrderItemStatusandReason(Long orderItemId, String newStatus,String reason) {
+    public OrderItem requstreturnOrderItemStatusandReason(Long orderItemId, String newStatus,String reason) {
         // Fetch the OrderItem from the database
         Optional<OrderItem> orderItemOptional = orderItemRepository.findById(orderItemId);
 

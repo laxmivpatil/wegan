@@ -446,7 +446,7 @@ public class OrderController {
 			@RequestParam(value = "reason", required = false) String reason) {
 		OrderItem updatedOrderItem = null;
 
-		updatedOrderItem = orderItemService.returnOrderItemStatusandReason(orderItemId,
+		updatedOrderItem = orderItemService.requstreturnOrderItemStatusandReason(orderItemId,
 				"Request for Return", reason);
 
 		Map<String, Object> response = new HashMap<>();

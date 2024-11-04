@@ -20,6 +20,6 @@ public interface OrderItemService {
 	 public OrderItem updateOrderItemStatus(Long orderItemId, String newStatus); 
 	 public OrderItem updateOrderItemStatusandReason(Long orderItemId, String newStatus,String reason); 
 	 public OrderItem requstCancelOrderItemStatusandReason(Long orderItemId, String newStatus,String reason);
-	 public OrderItem returnOrderItemStatusandReason(Long orderItemId, String newStatus,String reason); 
+	 public OrderItem requstreturnOrderItemStatusandReason(Long orderItemId, String newStatus,String reason); 
 }
 
