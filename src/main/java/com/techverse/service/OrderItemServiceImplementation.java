@@ -46,9 +46,7 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		if(orderStatus.equals("cancelled")) {
 			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for cancellation accept");
 		}
-		if(orderStatus.equals("return")) {
-			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for return accept");
-		}
+		 
 		if(orderStatus.equals("delivered")) {
 			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for return reject");
 		}
