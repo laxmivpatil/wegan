@@ -48,7 +48,7 @@ public class OrderItemServiceImplementation implements OrderItemService {
 		}
 		 
 		if(orderStatus.equals("delivered")) {
-			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for return reject");
+			 return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus,"request for return Reject");
 		}
         return orderItemRepository.findAllBySellerIdAndOrderStatus(user.getId(), orderStatus);
         
