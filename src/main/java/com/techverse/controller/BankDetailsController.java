@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techverse.exception.UserException;
 import com.techverse.model.BankDetails;
+import com.techverse.model.BankDetailsDTO;
 import com.techverse.model.Product;
 import com.techverse.model.User;
 import com.techverse.repository.UserRepository;
@@ -51,7 +52,7 @@ public class BankDetailsController {
 	        userRepository.save(user);
 	        
 	        
-	        response.put("bankDetails", bankDetails);
+	        
 			response.put("status", true);
 		    response.put("message", "bankdetails saved Successfully");
 		    return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
@@ -66,9 +67,20 @@ public class BankDetailsController {
 	    	User user=userService.findUserProfileByJwt(jwt);
        BankDetails bankDetails = user.getBankDetails();
          
-	        Map<String,Object> response = new HashMap<>();
+       BankDetailsDTO bankDetailsDTO = new BankDetailsDTO();
+       bankDetailsDTO.setAccountNumber(bankDetails.getAccountNumber());
+       bankDetailsDTO.setIfscCode(bankDetails.getIfscCode());
+       bankDetailsDTO.setAccountHolderName(bankDetails.getAccountHolderName());
+       bankDetailsDTO.setBankName(bankDetails.getBankName());
+       bankDetailsDTO.setState(bankDetails.getState());
+       bankDetailsDTO.setCity(bankDetails.getCity());
+       bankDetailsDTO.setBranch(bankDetails.getBranch());
+       bankDetailsDTO.setBankVerificationStatus(bankDetails.getBankVerificationStatus());
+
+       Map<String, Object> response = new HashMap<>();
+       response.put("bankDetails", bankDetailsDTO);
 			 
-			response.put("bankDetails", bankDetails);
+			  
 			response.put("status", true);
 		    response.put("message", "bankdetails get Successfully");
 		    return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);

@@ -53,7 +53,6 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
 	            .authorizeRequests()
 	            .antMatchers("/api/**").authenticated()
 	            .antMatchers("/admin/**").authenticated()
-	            .antMatchers("/admin/bankdetails/**").authenticated()
 	            .anyRequest().permitAll()
 	            .and()
 	            .addFilterBefore(jwtValidator, BasicAuthenticationFilter.class)
