@@ -36,5 +36,5 @@ public class SellerController {
 	        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 	    }
 	
-
+	    
 }

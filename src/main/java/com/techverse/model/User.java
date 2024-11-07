@@ -82,7 +82,12 @@ public class User {
 	@JsonIgnore
 	  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	    private List<Product> products = new ArrayList<>();
+	
 
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "bank_details_id")
+	private BankDetails bankDetails;
 	  
 	
 	
@@ -119,6 +124,17 @@ public class User {
 		this.ratings = ratings;
 		this.reviews = reviews;
 		this.createdAt = createdAt;
+	}
+
+	
+	
+	
+	public BankDetails getBankDetails() {
+		return bankDetails;
+	}
+
+	public void setBankDetails(BankDetails bankDetails) {
+		this.bankDetails = bankDetails;
 	}
 
 	public Long getId() {
