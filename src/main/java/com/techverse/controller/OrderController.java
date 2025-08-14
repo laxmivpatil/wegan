@@ -353,7 +353,9 @@ public class OrderController {
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("Order", order);
-		response.put("status", true);
+		
+		response.put("OrderCount", order.size());
+response.put("status", true);
 		response.put("message", "order get successfully");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 

@@ -18,13 +18,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 
 @Service
 public class JwtProvider {
 	
-	private final SecretKey jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+	//private final SecretKey jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+	
+	 
+	private final SecretKey jwtSecret=Keys.hmacShaKeyFor(Decoders.BASE64.decode("hgdsjgsdbvnsdbvbsdjvbdjfjsdgjhgsdjghdsghjgdsjhghsdgdggsg"));
 	private final int jwtExpirationInMs = 604800000; // 7 days
 	
 	public String generateToken(Authentication authentication) {
